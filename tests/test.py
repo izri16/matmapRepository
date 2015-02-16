@@ -11,10 +11,7 @@ from sklearn.naive_bayes import GaussianNB
 
 def build_model(X):
     locations = {}
-    In = []
-    for x in X:
-        In.extend(x)
-    for x in In:
+    for x in [item for sublist in X for item in sublist]:
         if x['Location'] in locations:
             if x['Address'] in locations[x['Location']]:
                 locations[x['Location']][x['Address']]['score'] += x['Quality']
