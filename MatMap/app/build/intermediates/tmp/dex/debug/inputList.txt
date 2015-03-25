@@ -1,0 +1,5 @@
+/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/classes/debug
+/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-12616090b3f8a02e6718de4b6591637a2e92b2cb.jar
+/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-944fc5b2e37f6db941c633f624bdb8ddefb4f295.jar
+/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/pre-dexed/debug/classes-6cde94b22c91bf757a2a52952771b260016bcfbb.jar
+/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/pre-dexed/debug/classes-cea7aab9639968dee230122da8eb3ad3c00f4a0b.jar
