@@ -226,6 +226,8 @@ public class TemporaryLocalization extends ActionBarActivity {
     }
 
     private void deleteSelectedRecord() {
+        //stupid comment
+
         String[] args = new String[]{roomName.getText().toString()};
         matMapDatabase.delete("search_data", "room_name=?", args);
 
