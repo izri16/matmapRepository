@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.matmap.History" >
+
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title="Delete"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_delete_all"
+        android:orderInCategory="100"
+        android:title="Delete All"
+        app:showAsAction="never"/>
+
+</menu>
+<!-- From: file:/home/richard/projekty/matmapRepo/MatMap/app/src/main/res/menu/history.xml -->
