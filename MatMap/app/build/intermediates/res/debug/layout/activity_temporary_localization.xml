@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.matmap.TemporaryLocalization">
+
+    <EditText
+        android:id="@+id/roomName"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"/>
+
+    <Button
+        android:id="@+id/temporaryLocalizationButton"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/roomName"
+        android:background="#777777"
+        android:textColor="#DDDDDD"
+        android:text="New Record"
+        android:onClick="putNewRecord"
+    />
+
+    <Button
+        android:id="@+id/deleteRecords"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/deleteAllRecords"
+        android:layout_centerHorizontal="true"
+        android:background="#333333"
+        android:textColor="#DDDDDD"
+        android:text="Delete Selected Record"
+        android:onClick="deleteRecord"
+        />
+
+    <Button
+        android:id="@id/deleteAllRecords"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/putRecordsIntoFile"
+        android:layout_centerHorizontal="true"
+        android:background="#333333"
+        android:textColor="#DDDDDD"
+        android:text="Delete All Records"
+        android:onClick="deleteRecords"
+        />
+
+    <Button
+        android:id="@id/putRecordsIntoFile"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="#333333"
+        android:textColor="#DDDDDD"
+        android:text="Put Changes Into File"
+        android:onClick="putRecordsIntoFile"
+        />
+
+</RelativeLayout>
+<!-- From: file:/home/richard/AndroidStudioProjects/MatMap/app/src/main/res/layout/activity_temporary_localization.xml -->
