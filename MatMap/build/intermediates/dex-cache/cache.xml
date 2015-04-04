@@ -2,11 +2,32 @@
 <items version="2" >
 
     <item
+        jar="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/pre-dexed/debug/classes-304236e4684c89a3b0dec9471a58227e1c5e2f35.jar" />
+    </item>
+    <item
+        jar="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/pre-dexed/debug/classes-938dc165a37f140c6dccd86279097887ec4c6f70.jar" />
+    </item>
+    <item
         jar="/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/pre-dexed/debug/classes-cea7aab9639968dee230122da8eb3ad3c00f4a0b.jar" />
+    </item>
+    <item
+        jar="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/richard/AndroidStudioProjects/matmapRepository/MatMap/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-7a634e05f4bff149e8f8150e23b4e73412d27709.jar" />
     </item>
     <item
         jar="/home/richard/AndroidStudioProjects/MatMap/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"

@@ -19,7 +19,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,14 +38,19 @@ public class TemporaryLocalization extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private TemporaryLocalization ref = this;
+    private ProgressBar spinner;
+    private Button temporaryLocalisationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temporary_localization);
 
+        spinner = (ProgressBar) findViewById(R.id.spinningProgressBar);
+        spinner.setVisibility(View.GONE);
+
+        temporaryLocalisationButton = (Button) findViewById(R.id.temporaryLocalizationButton);
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        wifiReceiver = new WifiReceiver();
         roomName = (EditText) findViewById(R.id.roomName);
     }
 
@@ -71,6 +78,7 @@ public class TemporaryLocalization extends ActionBarActivity {
     }
 
     public void putNewRecord(View view) {
+        wifiReceiver = new WifiReceiver();
         registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -106,6 +114,7 @@ public class TemporaryLocalization extends ActionBarActivity {
                     .show();
         }
         else {
+            activateSpinner();
             wifi.startScan();
         }
 
@@ -177,13 +186,9 @@ public class TemporaryLocalization extends ActionBarActivity {
         if (isExternalStorageWritable()) {
 
             File sdCard = Environment.getExternalStorageDirectory();
-            //File directory = new File(sdCard.getAbsolutePath() + "/AndroidFiles");
             File path = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOCUMENTS);
 
-            //directory.mkdirs();
-
-            //Now create the file in the above directory and write the contents into it
             File file = new File(path, "matmap_records.txt");
             try {
                 path.mkdirs();
@@ -261,6 +266,17 @@ public class TemporaryLocalization extends ActionBarActivity {
         return answer;
     }
 
+    private void activateSpinner() {
+        temporaryLocalisationButton.setText("Scanning, please wait");
+        this.spinner.setVisibility(View.VISIBLE);
+
+    }
+
+    private void deactivateSpinner() {
+        temporaryLocalisationButton.setText("New Record");
+        this.spinner.setVisibility(View.GONE);
+    }
+
     DialogInterface.OnClickListener saveChangesClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -322,7 +338,10 @@ public class TemporaryLocalization extends ActionBarActivity {
 
         @Override
         public void onReceive(Context c, Intent intent) {
-            Log.d("as", "here");
+
+
+
+            Log.d("Activity", "Scanning");
             List<ScanResult> scanList = wifi.getScanResults();
             ContentValues values = new ContentValues();
 
@@ -339,6 +358,9 @@ public class TemporaryLocalization extends ActionBarActivity {
             }
 
             unregisterReceiver(wifiReceiver);
+            wifiReceiver = null;
+
+            deactivateSpinner();
 
             new AlertDialog.Builder(ref)
                     .setTitle("Added!")
@@ -358,5 +380,9 @@ public class TemporaryLocalization extends ActionBarActivity {
         super.onDestroy();
 
         matMapDatabase.close();
+        if (wifiReceiver != null) {
+            unregisterReceiver(wifiReceiver);
+            wifiReceiver = null;
+        }
     }
 }

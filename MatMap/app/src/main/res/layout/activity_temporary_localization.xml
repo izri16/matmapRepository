@@ -16,12 +16,22 @@
         android:id="@+id/temporaryLocalizationButton"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/roomName"
+        android:layout_below="@id/roomName"
         android:background="#777777"
         android:textColor="#DDDDDD"
         android:text="New Record"
         android:onClick="putNewRecord"
     />
+
+    <ProgressBar
+        android:id="@+id/spinningProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temporaryLocalizationButton"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp">
+    </ProgressBar>
 
     <Button
         android:id="@+id/deleteRecords"
