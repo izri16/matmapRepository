@@ -14,5 +14,6 @@
     <string name="title_activity_history">History</string>
     <string name="title_activity_help">Help</string>
     <string name="title_activity_temporary_localisation">Temporary Localisation</string>
+    <string name="title_activity_record_manager">RecordManager</string>
 
 </resources>

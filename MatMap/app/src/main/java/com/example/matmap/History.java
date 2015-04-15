@@ -4,9 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class History extends ActionBarActivity {
@@ -50,7 +48,7 @@ public class History extends ActionBarActivity {
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM history ORDER BY timestamp DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name,  FROM history ORDER BY timestamp DESC", null);
 
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
