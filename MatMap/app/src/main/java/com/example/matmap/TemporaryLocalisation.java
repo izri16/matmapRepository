@@ -30,21 +30,21 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemporaryLocalization extends ActionBarActivity {
+public class TemporaryLocalisation extends ActionBarActivity {
     private List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>(); //Vsetky udaje o wifi
     private WifiManager wifi;
     private WifiReceiver wifiReceiver;
     private static EditText roomName;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
-    private TemporaryLocalization ref = this;
+    private TemporaryLocalisation ref = this;
     private ProgressBar spinner;
     private Button temporaryLocalisationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temporary_localization);
+        setContentView(R.layout.activity_temporary_localisation);
 
         spinner = (ProgressBar) findViewById(R.id.spinningProgressBar);
         spinner.setVisibility(View.GONE);
@@ -58,7 +58,7 @@ public class TemporaryLocalization extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_temporary_localization, menu);
+        getMenuInflater().inflate(R.menu.menu_temporary_localisation, menu);
         return true;
     }
 
@@ -187,7 +187,7 @@ public class TemporaryLocalization extends ActionBarActivity {
 
             File sdCard = Environment.getExternalStorageDirectory();
             File path = Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOCUMENTS);
+                    Environment.DIRECTORY_DOWNLOADS);
 
             File file = new File(path, "matmap_records.txt");
             try {
@@ -249,7 +249,7 @@ public class TemporaryLocalization extends ActionBarActivity {
     }
 
     private String getRecordsData() {
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, BSSID, strength, device, SSID FROM search_data ORDER BY room_name", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, group_id, BSSID, strength, device, SSID FROM search_data ORDER BY room_name", null);
 
         String answer = "";
 
@@ -345,10 +345,16 @@ public class TemporaryLocalization extends ActionBarActivity {
             List<ScanResult> scanList = wifi.getScanResults();
             ContentValues values = new ContentValues();
 
+            int groupId = 0;
             for (int i = 0; i < scanList.size(); i++) {
                 ScanResult sr = scanList.get(i);
 
-                values.put("room_name", TemporaryLocalization.roomName.getText().toString());
+                if (i == 0) {
+                    groupId = incrementGroupIdRecord();
+                }
+
+                values.put("room_name", TemporaryLocalisation.roomName.getText().toString());
+                values.put("group_id", groupId);
                 values.put("BSSID", sr.BSSID);
                 values.put("strength", sr.level);
                 values.put("device", Build.DEVICE);
@@ -373,6 +379,26 @@ public class TemporaryLocalization extends ActionBarActivity {
                     .show();
 
         }
+    }
+
+    private int incrementGroupIdRecord() {
+        constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM record_group", null);
+
+        int groupIdRecord = 0;
+
+        constantsCursor.moveToFirst();
+        while(!constantsCursor.isAfterLast()) {
+            groupIdRecord = constantsCursor.getInt(0);
+            constantsCursor.moveToNext();
+        }
+        constantsCursor.close();
+
+        String args[] = new String[]{String.valueOf(groupIdRecord)};
+        ContentValues values = new ContentValues();
+        values.put("record_group_id", groupIdRecord + 1);
+        matMapDatabase.update("record_group", values, "record_group_id=?", args);
+
+        return groupIdRecord;
     }
 
     @Override

@@ -64,7 +64,7 @@
                 android:value="com.example.matmap.MainActivity" />
         </activity>
         <activity
-            android:name=".TemporaryLocalization"
+            android:name=".TemporaryLocalisation"
             android:label="@string/title_activity_temporary_localisation" >
         </activity>
     </application>

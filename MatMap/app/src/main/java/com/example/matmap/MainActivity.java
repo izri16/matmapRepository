@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openTemporaryLocalisation() {
-        Intent intent = new Intent(this, TemporaryLocalization.class);
+        Intent intent = new Intent(this, TemporaryLocalisation.class);
         startActivity(intent);
     }
     

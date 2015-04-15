@@ -1434,7 +1434,7 @@ containing a value of this type.
         public static final int activity_main=0x7f030019;
         public static final int activity_new_location=0x7f03001a;
         public static final int activity_search=0x7f03001b;
-        public static final int activity_temporary_localization=0x7f03001c;
+        public static final int activity_temporary_localisation=0x7f03001c;
         public static final int auto_complete_text_view_item=0x7f03001d;
         public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
@@ -1443,7 +1443,7 @@ containing a value of this type.
         public static final int history=0x7f0c0001;
         public static final int main=0x7f0c0002;
         public static final int menu_help=0x7f0c0003;
-        public static final int menu_temporary_localization=0x7f0c0004;
+        public static final int menu_temporary_localisation=0x7f0c0004;
         public static final int new_location=0x7f0c0005;
         public static final int search=0x7f0c0006;
     }

@@ -32,8 +32,10 @@ public class MatMapDatabase extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE IF EXISTS history");
         db.execSQL("CREATE TABLE history (_id INTEGER PRIMARY KEY AUTOINCREMENT, room_name TEXT, timestamp REAL);");
         //db.execSQL("DROP TABLE IF EXISTS search_data");
-        db.execSQL("CREATE TABLE search_data (_id INTEGER PRIMARY KEY AUTOINCREMENT, room_name TEXT, " +
+        db.execSQL("CREATE TABLE search_data (_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, room_name TEXT, " +
                     "BSSID TEXT, strength REAL, device TEXT, SSID TEXT);");
+        //db.execSQL("DROP TABLE IF EXISTS ")
+        db.execSQL("CREATE TABLE record_group (record_group_id INTEGER);");
 
         ContentValues cv = new ContentValues();
 
@@ -142,6 +144,13 @@ public class MatMapDatabase extends SQLiteOpenHelper {
         cv.put(LEFT_NEIGHBOR, "nothing_for_now");
         db.insert("rooms", ROOM_NAME, cv);
 
+        /*
+         * Vlozi jediny riadok do tabulky group_id
+         */
+        cv.clear();
+
+        cv.put("record_group_id", 1);
+        db.insert("record_group", "record_group_id", cv);
     }
 
     @Override
