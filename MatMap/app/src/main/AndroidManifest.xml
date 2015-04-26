@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -66,6 +66,10 @@
         <activity
             android:name=".RecordManager"
             android:label="@string/title_activity_record_manager" >
+        </activity>
+        <activity
+            android:name=".SingleRecord"
+            android:label="@string/title_activity_single_record" >
         </activity>
     </application>
 

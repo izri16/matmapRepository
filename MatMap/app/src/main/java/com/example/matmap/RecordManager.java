@@ -1,7 +1,6 @@
 package com.example.matmap;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,10 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecordManager extends ActionBarActivity {
@@ -21,7 +20,7 @@ public class RecordManager extends ActionBarActivity {
     private List<String> items;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
-    private ArrayAdapter<String> recordsAdapter;
+    private RecordsAdapter recordsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +31,35 @@ public class RecordManager extends ActionBarActivity {
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, group_id, timestamp FROM search_data ORDER BY timestamp DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id FROM search_data ORDER BY timestamp DESC", null);
 
         constantsCursor.moveToFirst();
 
         int oldGroupId = -1;
         while(!constantsCursor.isAfterLast()) {
-            int groupId = constantsCursor.getInt(1);
+            int groupId = constantsCursor.getInt(2);
 
             if (groupId != oldGroupId) {
-                items.add(constantsCursor.getString(0) + "   " + constantsCursor.getString(2));
+                items.add(constantsCursor.getString(0) + "   " + constantsCursor.getString(1) +
+                            constantsCursor.getString(2));
                 oldGroupId = groupId;
             }
 
             constantsCursor.moveToNext();
         }
 
-        recordsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
-
-        recordsListView.setAdapter(recordsAdapter);
+        recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                new AlertDialog.Builder(parent.getContext())
+                Intent i = new Intent(getApplicationContext(), SingleRecord.class);
+                i.putExtra("id", 8);
+                startActivity(i);
+
+                /*new AlertDialog.Builder(parent.getContext())
                         .setTitle("Search")
                         .setMessage(String.valueOf(parent.getItemAtPosition(position)).toString())
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -67,7 +69,7 @@ public class RecordManager extends ActionBarActivity {
                                 //finish();
                             }
                         })
-                        .show();
+                        .show();*/
             }
 
 

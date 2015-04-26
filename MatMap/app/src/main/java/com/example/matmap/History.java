@@ -48,7 +48,7 @@ public class History extends ActionBarActivity {
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name,  FROM history ORDER BY timestamp DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM history ORDER BY timestamp DESC", null);
 
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
