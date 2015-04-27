@@ -150,7 +150,7 @@ public class MatMapDatabase extends SQLiteOpenHelper {
         cv.clear();
 
         cv.put("record_group_id", 1);
-        db.insert("record_group", "record_group_id", cv);
+        db.insert("activity_record_group", "record_group_id", cv);
     }
 
     @Override

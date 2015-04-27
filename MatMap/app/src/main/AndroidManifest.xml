@@ -68,6 +68,10 @@
             android:label="@string/title_activity_record_manager" >
         </activity>
         <activity
+            android:name=".RecordGroup"
+            android:label="@string/title_activity_single_record" >
+        </activity>
+        <activity
             android:name=".SingleRecord"
             android:label="@string/title_activity_single_record" >
         </activity>

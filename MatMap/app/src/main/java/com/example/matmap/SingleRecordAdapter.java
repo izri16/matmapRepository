@@ -11,13 +11,13 @@ import android.widget.TextView;
 /**
  * Created by richard on 26.4.2015.
  */
-public class RecordsAdapter extends BaseAdapter {
+public class SingleRecordAdapter extends BaseAdapter {
 
     private Context context;
     private String[] data;
     private Activity activity;
 
-    public RecordsAdapter(Context context, String[] data, Activity activity) {
+    public SingleRecordAdapter(Context context, String[] data, Activity activity) {
         this.context = context;
         this.data = data;
         this.activity = activity;
@@ -48,20 +48,19 @@ public class RecordsAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.all_records_row, parent, false);
+            vi = inflater.inflate(R.layout.single_record_row, parent, false);
 
         String[] elements = data[position].split("-del-i-mi-ner-");
 
-        TextView name = (TextView) vi.findViewById(R.id.simpleRecordRoomName);
-        name.setText(elements[0]);
-        TextView time = (TextView) vi.findViewById(R.id.simpleRecordTime);
-        time.setText(elements[1]);
+        TextView ssid = (TextView) vi.findViewById(R.id.singleRecordSSID);
+        ssid.setText(elements[0]);
+        TextView strength = (TextView) vi.findViewById(R.id.singleRecordBSSID);
+        strength.setText(elements[1]);
+        TextView bssid = (TextView) vi.findViewById(R.id.singleRecordStrength);
+        bssid.setText(elements[2]);
 
-        int groupId = Integer.valueOf(elements[2]);
-        vi.setTag(groupId);
-
-        /*TextView id = (TextView) vi.findViewById(R.id.simpleRecordID);
-        id.setText(String.valueOf(groupId));*/
+        int id = Integer.valueOf(elements[3]);
+        vi.setTag(id);
 
         return vi;
     }

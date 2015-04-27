@@ -5,76 +5,82 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecordManager extends ActionBarActivity {
-    private ListView recordsListView;
+public class RecordGroup extends ActionBarActivity {
+    private ListView listView;
     private List<String> items;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
-    private RecordsAdapter recordsAdapter;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_manager);
 
-        recordsListView = (ListView)findViewById(R.id.recordList);
+        /*
+         * Vytiahne id skupiny prave odkliknuteho zaznamu
+         */
+        int id = 0;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            id = Integer.valueOf(extras.getString("groupId"));
+        }
+
+        setContentView(R.layout.activity_record_group);
+
+        listView = (ListView)findViewById(R.id.singleRecordListView);
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id FROM search_data ORDER BY timestamp DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT SSID, STRENGTH, BSSID, _id FROM search_data WHERE group_id = '" + id + "' ORDER BY _id DESC", null);
 
         constantsCursor.moveToFirst();
 
-        int oldGroupId = -1;
         while(!constantsCursor.isAfterLast()) {
-            int groupId = constantsCursor.getInt(2);
 
-            if (groupId != oldGroupId) {
-                items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                          constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                          constantsCursor.getString(2));
-                oldGroupId = groupId;
-            }
+            items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
+                      constantsCursor.getString(1) + "-del-i-mi-ner-" +
+                      constantsCursor.getString(2) + "-del-i-mi-ner-" +
+                      constantsCursor.getString(3));
 
             constantsCursor.moveToNext();
         }
 
-        recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
 
-        recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String groupId = String.valueOf(view.getTag());
-                Log.d("FIRST ID", groupId);
+                String recordId = String.valueOf(view.getTag());
 
-                Intent i = new Intent(getApplicationContext(), RecordGroup.class);
-                i.putExtra("groupId", groupId);
+                Intent i = new Intent(getApplicationContext(), SingleRecord.class);
+                i.putExtra("recordId", recordId);
                 startActivity(i);
 
             }
 
         });
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_record_manager, menu);
+        getMenuInflater().inflate(R.menu.menu_single_record, menu);
         return true;
     }
 
@@ -101,5 +107,4 @@ public class RecordManager extends ActionBarActivity {
             matMapDatabase.close();
         }
     }
-
 }

@@ -10,11 +10,12 @@
     <string name="button_send">Send</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_search">Search</string>
-    <string name="title_activity_new_location">New Location</string>
+    <string name="title_activity_new_location">New location</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_help">Help</string>
-    <string name="title_activity_temporary_localisation">Temporary Localisation</string>
-    <string name="title_activity_record_manager">RecordManager</string>
-    <string name="title_activity_single_record">SingleRecord</string>
+    <string name="title_activity_temporary_localisation">MatMap Locator</string>
+    <string name="title_activity_record_manager">Record manager</string>
+    <string name="title_activity_record_group">Record group</string>
+    <string name="title_activity_single_record">Single record</string>
 
 </resources>

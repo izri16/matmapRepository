@@ -392,7 +392,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
     }
 
     private int incrementGroupIdRecord() {
-        constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM record_group", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM activity_record_group", null);
 
         int groupIdRecord = 0;
 
@@ -406,7 +406,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
         String args[] = new String[]{String.valueOf(groupIdRecord)};
         ContentValues values = new ContentValues();
         values.put("record_group_id", groupIdRecord + 1);
-        matMapDatabase.update("record_group", values, "record_group_id=?", args);
+        matMapDatabase.update("activity_record_group", values, "record_group_id=?", args);
 
         return groupIdRecord;
     }
