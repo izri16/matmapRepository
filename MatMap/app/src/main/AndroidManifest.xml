@@ -69,7 +69,7 @@
         </activity>
         <activity
             android:name=".RecordGroup"
-            android:label="@string/title_activity_single_record" >
+            android:label="@string/title_activity_record_group" >
         </activity>
         <activity
             android:name=".SingleRecord"

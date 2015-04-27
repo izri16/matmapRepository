@@ -1,4 +1,4 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,47 +8,57 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.matmap.SingleRecord">
+    tools:context="com.example.matmap.SingleRecord"
+    >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:paddingBottom="20dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:text="Record ID"
-            android:layout_width="150dp"
-            android:textSize="40px"
-            android:layout_height="fill_parent"
-            android:textColor="#555555"/>
-
-        <TextView
-            android:id="@+id/singleRecordID"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:textSize="40px"
-            android:layout_height="fill_parent"
-            android:textColor="#777777"/>
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <TextView
+                android:text="Record ID"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40px"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:id="@+id/singleRecordID"
+                android:layout_width="fill_parent"
+                android:textSize="30px"
+                android:layout_height="wrap_content"
+                android:textColor="#777777"/>
+
+        </LinearLayout>
+
+
 
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
     <TextView
         android:text="Group ID"
-        android:layout_width="150dp"
+        android:layout_width="fill_parent"
         android:textSize="40px"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:textColor="#555555"/>
 
     <TextView
         android:id="@+id/singleRecordGroupID"
         android:layout_width="fill_parent"
-        android:textSize="40px"
-        android:layout_height="fill_parent"
+        android:textSize="30px"
+        android:layout_height="wrap_content"
         android:textColor="#777777"/>
 
     </LinearLayout>
@@ -56,20 +66,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="Room name"
-            android:layout_width="150dp"
+            android:layout_width="fill_parent"
             android:textSize="40px"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordRoomName"
             android:layout_width="fill_parent"
-            android:textSize="40px"
-            android:layout_height="fill_parent"
+            android:textSize="30px"
+            android:layout_height="wrap_content"
             android:textColor="#777777"/>
 
     </LinearLayout>
@@ -77,20 +88,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="SSID"
-            android:layout_width="150dp"
+            android:layout_width="fill_parent"
             android:textSize="40px"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordSSID"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:textSize="30px"
             android:textColor="#777777"/>
 
     </LinearLayout>
@@ -98,20 +110,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="BSSID"
-            android:layout_width="150dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:textSize="40px"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordBSSID"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:textSize="30px"
             android:textColor="#777777"/>
 
     </LinearLayout>
@@ -119,20 +132,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="Strength"
-            android:layout_width="150dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:textSize="40px"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordStrength"
             android:layout_width="fill_parent"
-            android:textSize="40px"
-            android:layout_height="fill_parent"
+            android:textSize="30px"
+            android:layout_height="wrap_content"
             android:textColor="#777777"/>
 
     </LinearLayout>
@@ -140,20 +154,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="20dp">
 
         <TextView
             android:text="Device"
-            android:layout_width="150dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:textSize="40px"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordDevice"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:textSize="30px"
             android:textColor="#777777"/>
 
     </LinearLayout>
@@ -161,22 +176,24 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:paddingBottom="20dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="Timestamp"
-            android:layout_width="150dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:textSize="40px"
             android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/singleRecordTimestamp"
             android:layout_width="fill_parent"
-            android:textSize="40px"
-            android:layout_height="fill_parent"
+            android:textSize="30px"
+            android:layout_height="wrap_content"
             android:textColor="#777777"/>
 
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

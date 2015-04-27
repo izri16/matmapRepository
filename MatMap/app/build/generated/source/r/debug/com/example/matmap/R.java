@@ -1463,11 +1463,12 @@ containing a value of this type.
         public static final int history=0x7f0c0001;
         public static final int main=0x7f0c0002;
         public static final int menu_help=0x7f0c0003;
-        public static final int menu_record_manager=0x7f0c0004;
-        public static final int menu_single_record=0x7f0c0005;
-        public static final int menu_temporary_localisation=0x7f0c0006;
-        public static final int new_location=0x7f0c0007;
-        public static final int search=0x7f0c0008;
+        public static final int menu_record_group=0x7f0c0004;
+        public static final int menu_record_manager=0x7f0c0005;
+        public static final int menu_single_record=0x7f0c0006;
+        public static final int menu_temporary_localisation=0x7f0c0007;
+        public static final int new_location=0x7f0c0008;
+        public static final int search=0x7f0c0009;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0a0000;
