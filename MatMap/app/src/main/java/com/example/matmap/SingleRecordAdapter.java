@@ -48,7 +48,7 @@ public class SingleRecordAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.single_record_row, parent, false);
+            vi = inflater.inflate(R.layout.three_items_row, parent, false);
 
         String[] elements = data[position].split("-del-i-mi-ner-");
 

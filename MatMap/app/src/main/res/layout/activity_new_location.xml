@@ -23,7 +23,7 @@
     <AutoCompleteTextView
         android:id="@+id/newLocation"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:textColor="#999999"
         android:completionThreshold="1"/>
@@ -35,8 +35,10 @@
         <Button
             android:text="Click for help"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
+            android:textColor="#FFFFFF"
+            android:background="#606060"
             android:onClick="openHelp"/>
 
     </RelativeLayout>

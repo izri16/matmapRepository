@@ -110,6 +110,11 @@ public class TemporaryLocalisation extends ActionBarActivity {
                     .show();
         }
         else if (roomName.getText().toString().equals("")) {
+            if (wifiReceiver != null) {
+                unregisterReceiver(wifiReceiver);
+                wifiReceiver = null;
+            }
+
             new AlertDialog.Builder(this)
                     .setTitle("Room name is empty!")
                     .setMessage("Please type correct name")
@@ -126,14 +131,6 @@ public class TemporaryLocalisation extends ActionBarActivity {
             activateSpinner();
             wifi.startScan();
         }
-
-    }
-
-    public void deleteRecords(View view) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Really want to delete all records?").setPositiveButton("Yes", deleteRecordsClickListener)
-                .setNegativeButton("No", deleteRecordsClickListener).show();
 
     }
 
@@ -282,7 +279,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
     }
 
     private void deactivateSpinner() {
-        temporaryLocalisationButton.setText("New Record");
+        temporaryLocalisationButton.setText("Add new record");
         this.spinner.setVisibility(View.GONE);
     }
 
@@ -292,32 +289,6 @@ public class TemporaryLocalisation extends ActionBarActivity {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     changeFile();
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    //Do nothing
-                    break;
-            }
-        }
-    };
-
-    DialogInterface.OnClickListener deleteRecordsClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    matMapDatabase.delete("search_data", null, null);
-
-                    new AlertDialog.Builder(ref)
-                            .setTitle("Successfully deleted!")
-                            .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .show();
-
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -347,8 +318,6 @@ public class TemporaryLocalisation extends ActionBarActivity {
 
         @Override
         public void onReceive(Context c, Intent intent) {
-
-
 
             Log.d("Activity", "Scanning");
             List<ScanResult> scanList = wifi.getScanResults();
@@ -392,7 +361,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
     }
 
     private int incrementGroupIdRecord() {
-        constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM activity_record_group", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM record_group", null);
 
         int groupIdRecord = 0;
 
@@ -406,7 +375,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
         String args[] = new String[]{String.valueOf(groupIdRecord)};
         ContentValues values = new ContentValues();
         values.put("record_group_id", groupIdRecord + 1);
-        matMapDatabase.update("activity_record_group", values, "record_group_id=?", args);
+        matMapDatabase.update("record_group", values, "record_group_id=?", args);
 
         return groupIdRecord;
     }

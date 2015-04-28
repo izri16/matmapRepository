@@ -26,7 +26,11 @@ public class RecordsAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return data.length;
+        if (data == null) {
+            return 0;
+        } else {
+            return data.length;
+        }
     }
 
     @Override
@@ -48,7 +52,7 @@ public class RecordsAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.all_records_row, parent, false);
+            vi = inflater.inflate(R.layout.two_items_row, parent, false);
 
         String[] elements = data[position].split("-del-i-mi-ner-");
 

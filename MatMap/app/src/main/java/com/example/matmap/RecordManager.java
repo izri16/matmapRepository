@@ -1,5 +1,7 @@
 package com.example.matmap;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,6 +24,7 @@ public class RecordManager extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private RecordsAdapter recordsAdapter;
+    private RecordManager ref = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,9 @@ public class RecordManager extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        /*MenuInflater mnuInflater = getSupportMenuInflater();
+        mnuInflater.inflate(R.menu.your_menu_xml, menu);*/
+
         getMenuInflater().inflate(R.menu.menu_record_manager, menu);
         return true;
     }
@@ -87,11 +93,37 @@ public class RecordManager extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            deleteRecords();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void deleteRecords() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Really want to delete all records?").setPositiveButton("Yes", deleteRecordsClickListener)
+                .setNegativeButton("No", deleteRecordsClickListener).show();
+
+    }
+
+    DialogInterface.OnClickListener deleteRecordsClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    matMapDatabase.delete("search_data", null, null);
+                    recordsListView.setAdapter(new RecordsAdapter(ref, null, ref));
+
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //Do nothing
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onDestroy() {
