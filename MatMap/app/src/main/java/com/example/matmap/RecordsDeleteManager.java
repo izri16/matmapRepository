@@ -62,8 +62,6 @@ public class RecordsDeleteManager extends Activity {
                 recordsAdapter.setRecentSwitch(false);
                 recordsAdapter.reCheck(position);
                 recordsAdapter.notifyDataSetChanged();
-                Log.d("FIRST ID", String.valueOf(position));
-
             }
 
         });
@@ -92,14 +90,19 @@ public class RecordsDeleteManager extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Invoked when top panel with 'Choose all' text is being clicked
+     *
+     * @param view view of clicked element
+     */
     public void chooseAll(View view) {
 
-        //bol odkliknuty panel
+        //top panel with 'choose all' text was clicked
         if (!view.equals(view.findViewById(R.id.boxToCheckAll))) {
             CheckBox c = (CheckBox) view.findViewById(R.id.boxToCheckAll);
             c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
         }
-        //bol odkliknuty checkbox
+        //checkbox in 'choose all' panel was clicked
         else {
             CheckBox c = (CheckBox) view;
             c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
@@ -119,9 +122,6 @@ public class RecordsDeleteManager extends Activity {
         recordsAdapter.setRecentSwitch(true);
         recordsAdapter.notifyDataSetChanged();
 
-        /*
-         * Pri premazavani a zvyraznovani nestaci len zmenit na opacnu hodnotu!!!
-         */
         for (int i = 0; i < itemsCount; i++) {
             recordsAdapter.setValueAtPosition(i, switchAll);
             recordsAdapter.getView(i, null, null);
@@ -129,6 +129,11 @@ public class RecordsDeleteManager extends Activity {
 
     }
 
+    /**
+     * Invoked when checkbox in the body of the delete list is clicked
+     *
+     * @param view currently clicked checkbox
+     */
     public void checkBoxClicked(View view) {
         Integer l = (Integer) view.getTag();
 

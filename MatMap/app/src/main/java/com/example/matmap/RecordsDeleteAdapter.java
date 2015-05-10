@@ -47,23 +47,50 @@ public class RecordsDeleteAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * Sets switchToCheckAll variable
+     *
+     * @param value
+     */
     public void setSwitchAll(boolean value) {
         this.switchToCheckedAll = value;
         this.recentSwitch = true;
     }
 
+    /**
+     * Set checkbox value at specified position
+     *
+     * @param position position of checkbox in the list
+     * @param value boolean value to be set on
+     */
     public void setValueAtPosition(int position, boolean value) {
         this.checked[position] = value;
     }
 
+    /**
+     * Notice if the 'Choose all' bottom was switched recently
+     *
+     * @param value boolean value representing recent switch
+     */
     public void setRecentSwitch(boolean value) {
         this.recentSwitch = value;
     }
 
+    /**
+     * Set checkbox at current position to opposite value
+     *
+     * @param position position of checkbox in the list
+     */
     public void reCheck(int position) {
         this.checked[position] = !this.checked[position];
     }
 
+    /**
+     * Check if any item in the body of delete box is clicked
+     *
+     * @return true if some item is clicked
+     * @return false otherwise
+     */
     public boolean checkIfSomeNotSwitched() {
         boolean answer = false;
 
