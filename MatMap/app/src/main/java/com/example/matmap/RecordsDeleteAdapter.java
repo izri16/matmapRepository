@@ -38,7 +38,7 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public String getItem(int position) {
         return data[position];
     }
 
@@ -55,6 +55,15 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     public void setSwitchAll(boolean value) {
         this.switchToCheckedAll = value;
         this.recentSwitch = true;
+    }
+
+    /**
+     *
+     * @param position
+     * @return checkBox value at position
+     */
+    public boolean getCheckBoxValue(int position) {
+        return this.checked[position];
     }
 
     /**
@@ -86,16 +95,33 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     }
 
     /**
-     * Check if any item in the body of delete box is clicked
+     * Check if any item in the body of delete box is not clicked
      *
-     * @return true if some item is clicked
-     * @return false otherwise
+     * @return true if some item is not clicked, false otherwise
      */
     public boolean checkIfSomeNotSwitched() {
         boolean answer = false;
 
         for (int i = 0; i < this.checked.length; i++) {
             if (checked[i] == false) {
+                answer = true;
+                break;
+            }
+        }
+
+        return answer;
+    }
+
+    /**
+     * Check if any item in the body of delete box is clicked
+     *
+     * @return true if some item is clicked, false otherwise
+     */
+    public boolean checkIfSomeSwitched() {
+        boolean answer = false;
+
+        for (int i = 0; i < this.checked.length; i++) {
+            if (checked[i] == true) {
                 answer = true;
                 break;
             }

@@ -4,14 +4,8 @@
     tools:context="com.example.matmap.RecordManager">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="Delete all records"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_delete_records"
-        android:title="Delete"
+        android:title="Delete records"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>
