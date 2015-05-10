@@ -262,7 +262,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
             for (int i = 0; i < constantsCursor.getColumnCount(); i++) {
-                answer += constantsCursor.getString(i) + " ";
+                answer += constantsCursor.getString(i) + "\t";
             }
             answer += "\n";
             constantsCursor.moveToNext();

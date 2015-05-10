@@ -1,37 +1,35 @@
 package com.example.matmap;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecordManager extends ActionBarActivity {
+public class RecordsDeleteManager extends Activity {
     private ListView recordsListView;
     private List<String> items;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
-    private RecordsAdapter recordsAdapter;
-    private RecordManager ref = this;
+    private RecordsDeleteAdapter recordsAdapter;
+    private boolean switchAll = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_manager);
+        setContentView(R.layout.activity_records_delete_manager);
 
-        recordsListView = (ListView)findViewById(R.id.recordList);
+        recordsListView = (ListView)findViewById(R.id.recordDeleteList);
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
@@ -45,42 +43,37 @@ public class RecordManager extends ActionBarActivity {
 
             if (groupId != oldGroupId) {
                 items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                          constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                          constantsCursor.getString(2));
+                        constantsCursor.getString(1) + "-del-i-mi-ner-" +
+                        constantsCursor.getString(2));
                 oldGroupId = groupId;
             }
 
             constantsCursor.moveToNext();
         }
 
-        recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
+        this.recordsAdapter = new RecordsDeleteAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this);
+        this.recordsListView.setAdapter(this.recordsAdapter);
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String groupId = String.valueOf(view.getTag());
-                Log.d("FIRST ID", groupId);
-
-                Intent i = new Intent(getApplicationContext(), RecordGroup.class);
-                i.putExtra("groupId", groupId);
-                startActivity(i);
+                recordsAdapter.setRecentSwitch(false);
+                recordsAdapter.reCheck(position);
+                recordsAdapter.notifyDataSetChanged();
+                Log.d("FIRST ID", String.valueOf(position));
 
             }
 
         });
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /*MenuInflater mnuInflater = getSupportMenuInflater();
-        mnuInflater.inflate(R.menu.your_menu_xml, menu);*/
-
-        getMenuInflater().inflate(R.menu.menu_record_manager, menu);
+        getMenuInflater().inflate(R.menu.menu_records_delete_manager, menu);
         return true;
     }
 
@@ -93,49 +86,56 @@ public class RecordManager extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            deleteRecords();
             return true;
-        }
-        else if (id == R.id.action_delete_records) {
-            openRecordsDeleteManager();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteRecords() {
+    public void chooseAll(View view) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Really want to delete all records?").setPositiveButton("Yes", deleteRecordsClickListener)
-                .setNegativeButton("No", deleteRecordsClickListener).show();
-
-    }
-
-    public void openRecordsDeleteManager() {
-        Intent intent = new Intent(this, RecordsDeleteManager.class);
-        startActivity(intent);
-    }
-
-    private void findRecordsByName() {
-        //TODO
-    }
-
-    DialogInterface.OnClickListener deleteRecordsClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    matMapDatabase.delete("search_data", null, null);
-                    recordsListView.setAdapter(new RecordsAdapter(ref, null, ref));
-
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    //Do nothing
-                    break;
-            }
+        //bol odkliknuty panel
+        if (!view.equals(view.findViewById(R.id.boxToCheckAll))) {
+            CheckBox c = (CheckBox) view.findViewById(R.id.boxToCheckAll);
+            c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
         }
-    };
+        //bol odkliknuty checkbox
+        else {
+            CheckBox c = (CheckBox) view;
+            c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
+        }
+
+        int itemsCount = this.recordsAdapter.getCount();
+
+        if (recordsAdapter.checkIfSomeNotSwitched()) {
+            recordsAdapter.setSwitchAll(true);
+            this.switchAll = true;
+        }
+        else {
+            recordsAdapter.setSwitchAll(false);
+            this.switchAll = false;
+        }
+
+        recordsAdapter.setRecentSwitch(true);
+        recordsAdapter.notifyDataSetChanged();
+
+        /*
+         * Pri premazavani a zvyraznovani nestaci len zmenit na opacnu hodnotu!!!
+         */
+        for (int i = 0; i < itemsCount; i++) {
+            recordsAdapter.setValueAtPosition(i, switchAll);
+            recordsAdapter.getView(i, null, null);
+        }
+
+    }
+
+    public void checkBoxClicked(View view) {
+        Integer l = (Integer) view.getTag();
+
+        recordsAdapter.setRecentSwitch(false);
+        recordsAdapter.reCheck(l);
+        recordsAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onDestroy() {
@@ -145,5 +145,4 @@ public class RecordManager extends ActionBarActivity {
             matMapDatabase.close();
         }
     }
-
 }

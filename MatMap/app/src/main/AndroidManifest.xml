@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/CustomActionBarTheme">
+        android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -74,6 +74,10 @@
         <activity
             android:name=".SingleRecord"
             android:label="@string/title_activity_single_record" >
+        </activity>
+        <activity
+            android:name=".RecordsDeleteManager"
+            android:label="@string/title_activity_records_delete_manager" >
         </activity>
     </application>
 

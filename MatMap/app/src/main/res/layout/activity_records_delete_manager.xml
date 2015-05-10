@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222222"
+    android:orientation="vertical"
+    tools:context="com.example.matmap.RecordsDeleteManager">
+
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/deleteBox">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textColor="#FFFFFF"
+        android:paddingLeft="20dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#223A42"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:onClick="chooseAll"
+        >
+
+    <TextView
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose all"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"/>
+
+    <CheckBox
+        android:id="@+id/boxToCheckAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:onClick="chooseAll"
+        />
+
+    </RelativeLayout>
+
+    <!--POMOCNY PRAZDNY RIADOK-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="#181F21">
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/recordDeleteList"
+        android:drawSelectorOnTop="false"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:visibility="visible"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/deleteBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#888888"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="4dp">
+
+        <Button
+            android:text="Delete"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"/>
+
+        <Button
+            android:text="Back"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>
