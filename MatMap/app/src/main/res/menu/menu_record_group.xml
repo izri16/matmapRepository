@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.matmap.RecordGroup">
 
-    <item android:id="@+id/renameRecord"
+    <item android:id="@+id/action_rename_record"
         android:title="Rename record"
         android:orderInCategory="100"
         app:showAsAction="never" />

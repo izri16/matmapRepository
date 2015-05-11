@@ -18,5 +18,7 @@
     <string name="title_activity_record_group">Record group</string>
     <string name="title_activity_single_record">Single record</string>
     <string name="title_activity_records_delete_manager">Delete records</string>
+    <string name="title_activity_find_record_by_name">FindRecordByName</string>
+    <string name="title_activity_rename_record">RenameRecord</string>
 
 </resources>

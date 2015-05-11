@@ -1324,9 +1324,9 @@ containing a value of this type.
         public static final int action_context_bar=0x7f080032;
         public static final int action_delete=0x7f08006b;
         public static final int action_delete_all=0x7f08006c;
-        public static final int action_delete_records=0x7f08006e;
+        public static final int action_delete_records=0x7f08006f;
         public static final int action_edit=0x7f080071;
-        public static final int action_find_record=0x7f08006f;
+        public static final int action_find_record=0x7f080070;
         public static final int action_history=0x7f080069;
         public static final int action_menu_divider=0x7f080002;
         public static final int action_menu_presenter=0x7f080003;
@@ -1334,8 +1334,9 @@ containing a value of this type.
         public static final int action_mode_bar_stub=0x7f08002d;
         public static final int action_mode_close_button=0x7f080020;
         public static final int action_new_location=0x7f080068;
+        public static final int action_rename_record=0x7f08006e;
         public static final int action_search=0x7f080067;
-        public static final int action_settings=0x7f080070;
+        public static final int action_settings=0x7f08006d;
         public static final int action_temporary_localization=0x7f08006a;
         public static final int activity_chooser_view_content=0x7f080021;
         public static final int always=0x7f080016;
@@ -1389,7 +1390,6 @@ containing a value of this type.
         public static final int recordList=0x7f08004c;
         public static final int remove=0x7f080046;
         public static final int removeMenu=0x7f080044;
-        public static final int renameRecord=0x7f08006d;
         public static final int roomName=0x7f08005d;
         public static final int search_badge=0x7f080035;
         public static final int search_bar=0x7f080034;
@@ -1456,35 +1456,39 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030014;
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
-        public static final int activity_help=0x7f030017;
-        public static final int activity_history=0x7f030018;
-        public static final int activity_main=0x7f030019;
-        public static final int activity_new_location=0x7f03001a;
-        public static final int activity_record_group=0x7f03001b;
-        public static final int activity_record_manager=0x7f03001c;
-        public static final int activity_records_delete_manager=0x7f03001d;
-        public static final int activity_search=0x7f03001e;
-        public static final int activity_single_record=0x7f03001f;
-        public static final int activity_temporary_localisation=0x7f030020;
-        public static final int auto_complete_text_view_item=0x7f030021;
-        public static final int menu_item=0x7f030022;
-        public static final int support_simple_spinner_dropdown_item=0x7f030023;
-        public static final int three_items_row=0x7f030024;
-        public static final int two_items_delete_row=0x7f030025;
-        public static final int two_items_row=0x7f030026;
+        public static final int activity_find_record_by_name=0x7f030017;
+        public static final int activity_help=0x7f030018;
+        public static final int activity_history=0x7f030019;
+        public static final int activity_main=0x7f03001a;
+        public static final int activity_new_location=0x7f03001b;
+        public static final int activity_record_group=0x7f03001c;
+        public static final int activity_record_manager=0x7f03001d;
+        public static final int activity_records_delete_manager=0x7f03001e;
+        public static final int activity_rename_record=0x7f03001f;
+        public static final int activity_search=0x7f030020;
+        public static final int activity_single_record=0x7f030021;
+        public static final int activity_temporary_localisation=0x7f030022;
+        public static final int auto_complete_text_view_item=0x7f030023;
+        public static final int menu_item=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
+        public static final int three_items_row=0x7f030026;
+        public static final int two_items_delete_row=0x7f030027;
+        public static final int two_items_row=0x7f030028;
     }
     public static final class menu {
         public static final int action_bar=0x7f0c0000;
         public static final int history=0x7f0c0001;
         public static final int main=0x7f0c0002;
-        public static final int menu_help=0x7f0c0003;
-        public static final int menu_record_group=0x7f0c0004;
-        public static final int menu_record_manager=0x7f0c0005;
-        public static final int menu_records_delete_manager=0x7f0c0006;
-        public static final int menu_single_record=0x7f0c0007;
-        public static final int menu_temporary_localisation=0x7f0c0008;
-        public static final int new_location=0x7f0c0009;
-        public static final int search=0x7f0c000a;
+        public static final int menu_find_record_by_name=0x7f0c0003;
+        public static final int menu_help=0x7f0c0004;
+        public static final int menu_record_group=0x7f0c0005;
+        public static final int menu_record_manager=0x7f0c0006;
+        public static final int menu_records_delete_manager=0x7f0c0007;
+        public static final int menu_rename_record=0x7f0c0008;
+        public static final int menu_single_record=0x7f0c0009;
+        public static final int menu_temporary_localisation=0x7f0c000a;
+        public static final int new_location=0x7f0c000b;
+        public static final int search=0x7f0c000c;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0a0000;
@@ -1511,15 +1515,17 @@ containing a value of this type.
         public static final int button_send=0x7f0a0015;
         public static final int edit_message=0x7f0a0016;
         public static final int hello_world=0x7f0a0017;
-        public static final int title_activity_help=0x7f0a0018;
-        public static final int title_activity_history=0x7f0a0019;
-        public static final int title_activity_new_location=0x7f0a001a;
-        public static final int title_activity_record_group=0x7f0a001b;
-        public static final int title_activity_record_manager=0x7f0a001c;
-        public static final int title_activity_records_delete_manager=0x7f0a001d;
-        public static final int title_activity_search=0x7f0a001e;
-        public static final int title_activity_single_record=0x7f0a001f;
-        public static final int title_activity_temporary_localisation=0x7f0a0020;
+        public static final int title_activity_find_record_by_name=0x7f0a0018;
+        public static final int title_activity_help=0x7f0a0019;
+        public static final int title_activity_history=0x7f0a001a;
+        public static final int title_activity_new_location=0x7f0a001b;
+        public static final int title_activity_record_group=0x7f0a001c;
+        public static final int title_activity_record_manager=0x7f0a001d;
+        public static final int title_activity_records_delete_manager=0x7f0a001e;
+        public static final int title_activity_rename_record=0x7f0a001f;
+        public static final int title_activity_search=0x7f0a0020;
+        public static final int title_activity_single_record=0x7f0a0021;
+        public static final int title_activity_temporary_localisation=0x7f0a0022;
     }
     public static final class style {
         /** 

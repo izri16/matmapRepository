@@ -22,11 +22,41 @@ public class RecordGroup extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private ArrayAdapter<String> adapter;
+    private String roomName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_record_group);
 
+         init();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_record_group, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_rename_record) {
+            openRenameRecord();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void init() {
         /*
          * Vytiahne id skupiny prave odkliknuteho zaznamu
          */
@@ -36,27 +66,28 @@ public class RecordGroup extends ActionBarActivity {
             id = Integer.valueOf(extras.getString("groupId"));
         }
 
-        setContentView(R.layout.activity_record_group);
-
         listView = (ListView)findViewById(R.id.singleRecordListView);
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT SSID, STRENGTH, BSSID, _id FROM search_data WHERE group_id = '" + id + "' ORDER BY _id DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT SSID, STRENGTH, BSSID, _id, room_name FROM search_data WHERE group_id = '" + id + "' ORDER BY _id DESC", null);
 
         constantsCursor.moveToFirst();
+        this.roomName = constantsCursor.getString(4);
+        getSupportActionBar().setTitle(roomName);
 
         while(!constantsCursor.isAfterLast()) {
 
             items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                      constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                      constantsCursor.getString(2) + "-del-i-mi-ner-" +
-                      constantsCursor.getString(3));
+                    constantsCursor.getString(1) + "-del-i-mi-ner-" +
+                    constantsCursor.getString(2) + "-del-i-mi-ner-" +
+                    constantsCursor.getString(3));
 
             constantsCursor.moveToNext();
         }
 
 
+        constantsCursor.close();
 
         listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
 
@@ -76,27 +107,20 @@ public class RecordGroup extends ActionBarActivity {
         });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_record_group, menu);
-        return true;
+    private void openRenameRecord() {
+        Intent intent = new Intent(this, RenameRecord.class);
+        intent.putExtra("roomName", roomName);
+        startActivity(intent);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onRestart() {
+        super.onRestart();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (matMapDatabase != null) {
+            matMapDatabase.close();
         }
-
-        return super.onOptionsItemSelected(item);
+        init();
     }
 
     @Override

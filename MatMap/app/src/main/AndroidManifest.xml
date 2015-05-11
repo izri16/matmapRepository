@@ -79,6 +79,14 @@
             android:name=".RecordsDeleteManager"
             android:label="@string/title_activity_records_delete_manager" >
         </activity>
+        <activity
+            android:name=".FindRecordByName"
+            android:label="@string/title_activity_find_record_by_name" >
+        </activity>
+        <activity
+            android:name=".RenameRecord"
+            android:label="@string/title_activity_rename_record" >
+        </activity>
     </application>
 
 </manifest>

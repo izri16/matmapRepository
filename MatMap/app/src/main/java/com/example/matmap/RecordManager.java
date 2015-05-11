@@ -65,6 +65,9 @@ public class RecordManager extends ActionBarActivity {
         if (id == R.id.action_delete_records) {
             openRecordsDeleteManager();
         }
+        else if (id == R.id.action_find_record) {
+            openFindRecordByName();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -120,6 +123,7 @@ public class RecordManager extends ActionBarActivity {
 
                 Intent i = new Intent(getApplicationContext(), RecordGroup.class);
                 i.putExtra("groupId", groupId);
+
                 startActivity(i);
 
             }
@@ -130,16 +134,17 @@ public class RecordManager extends ActionBarActivity {
     /**
      * When invoked opens new RecordsDeleteManager activity
      */
-    public void openRecordsDeleteManager() {
+    private void openRecordsDeleteManager() {
         Intent intent = new Intent(this, RecordsDeleteManager.class);
         startActivity(intent);
     }
 
     /**
-     * When invoked opens new FindRecordsManager activity
+     * When invoked opens new FindRecordByName activity
      */
-    private void openFindRecordsManager() {
-        //TODO
+    private void openFindRecordByName() {
+        Intent intent = new Intent(this, FindRecordByName.class);
+        startActivity(intent);
     }
 
     @Override
