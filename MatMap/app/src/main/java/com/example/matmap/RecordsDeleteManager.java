@@ -35,7 +35,6 @@ public class RecordsDeleteManager extends Activity {
         init();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -58,11 +57,15 @@ public class RecordsDeleteManager extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * does all necessary work to initialize all important variables
+     */
     private void init() {
         recordsListView = (ListView)findViewById(R.id.recordDeleteList);
         items = new ArrayList<>();
         deleteButton = (Button) findViewById(R.id.deleteRecordsDeleteButton);
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
+
         constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id " +
                 "                           FROM search_data ORDER BY timestamp DESC", null);
 
@@ -80,6 +83,10 @@ public class RecordsDeleteManager extends Activity {
             }
 
             constantsCursor.moveToNext();
+        }
+
+        if (items.isEmpty()) {
+            finish();
         }
 
         this.recordsAdapter = new RecordsDeleteAdapter(this, Arrays.copyOf(items.toArray(),
@@ -165,6 +172,11 @@ public class RecordsDeleteManager extends Activity {
         finish();
     }
 
+    /**
+     * Invoked when delete is clicked
+     *
+     * @param view
+     */
     public void deleteRecords(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Really want to delete selected records?")
@@ -172,6 +184,9 @@ public class RecordsDeleteManager extends Activity {
                 .setNegativeButton("No", deleteRecordsClickListener).show();
     }
 
+    /**
+     * Listener for alert dialog when delete is clicked
+     */
     DialogInterface.OnClickListener deleteRecordsClickListener =
             new DialogInterface.OnClickListener() {
 
@@ -189,14 +204,36 @@ public class RecordsDeleteManager extends Activity {
         }
     };
 
+    /**
+     * Deletes selected records from SQLite database
+     */
     private void delete() {
 
-        for (int i = 0; i < recordsAdapter.getCount(); i++) {
-            if (recordsAdapter.getCheckBoxValue(i)) {
-                String[] pom = recordsAdapter.getItem(i).split("-del-i-mi-ner-");
-                String[] id = new String[]{pom[2]};
-                this.matMapDatabase.delete("search_data", "group_id =?", id);
+        if (recordsAdapter.checkIfSomeNotSwitched()) {
+
+            List<String> itemsToDelete = new ArrayList<>();
+            StringBuilder whereClause = new StringBuilder();
+            whereClause.append("group_id in (");
+
+            for (int i = 0; i < recordsAdapter.getCount(); i++) {
+                if (recordsAdapter.getCheckBoxValue(i)) {
+                    String[] pom = recordsAdapter.getItem(i).split("-del-i-mi-ner-");
+                    itemsToDelete.add(pom[2]);
+                    whereClause.append("?,");
+                }
             }
+
+            whereClause.delete(whereClause.length() - 1, whereClause.length());
+            whereClause.append(")");
+
+            String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
+                    String[].class);
+
+
+            this.matMapDatabase.delete("search_data", whereClause.toString(), pom);
+        }
+        else {
+            this.matMapDatabase.delete("search_data", null, null);
         }
 
         recordsAdapter.notifyDataSetChanged();

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +23,8 @@ public class RecordManager extends ActionBarActivity {
     private Cursor constantsCursor = null;
     private RecordsAdapter recordsAdapter;
     private RecordManager ref = this;
+    private TextView noRecords;
+    private boolean disableMenu = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,19 @@ public class RecordManager extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /*MenuInflater mnuInflater = getSupportMenuInflater();
-        mnuInflater.inflate(R.menu.your_menu_xml, menu);*/
-
         getMenuInflater().inflate(R.menu.menu_record_manager, menu);
+
+        MenuItem del = menu.findItem(R.id.action_delete_records);
+        MenuItem find = menu.findItem(R.id.action_find_record);
+
+        if (this.disableMenu) {
+            del.setVisible(false);
+            find.setVisible(false);
+        }
+        else {
+            del.setVisible(true);
+            find.setVisible(true);
+        }
         return true;
     }
 
@@ -58,6 +69,9 @@ public class RecordManager extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * does all necessary work to initialize all important variables
+     */
     private void init() {
         recordsListView = (ListView)findViewById(R.id.recordList);
         items = new ArrayList<>();
@@ -81,6 +95,19 @@ public class RecordManager extends ActionBarActivity {
             constantsCursor.moveToNext();
         }
 
+        this.noRecords = (TextView) findViewById(R.id.noRecords);
+
+        if (!items.isEmpty()) {
+            this.noRecords.setVisibility(View.GONE);
+            this.disableMenu = false;
+            invalidateOptionsMenu();
+        }
+        else {
+            this.noRecords.setVisibility(View.VISIBLE);
+            this.disableMenu = true;
+            invalidateOptionsMenu();
+        }
+
         recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,12 +127,18 @@ public class RecordManager extends ActionBarActivity {
         });
     }
 
+    /**
+     * When invoked opens new RecordsDeleteManager activity
+     */
     public void openRecordsDeleteManager() {
         Intent intent = new Intent(this, RecordsDeleteManager.class);
         startActivity(intent);
     }
 
-    private void findRecordsByName() {
+    /**
+     * When invoked opens new FindRecordsManager activity
+     */
+    private void openFindRecordsManager() {
         //TODO
     }
 
