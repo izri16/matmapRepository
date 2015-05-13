@@ -36,19 +36,7 @@
     </ProgressBar>
 
     <Button
-        android:id="@+id/deleteRecords"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_above="@+id/putRecordsIntoFile"
-        android:layout_centerHorizontal="true"
-        android:background="#333333"
-        android:textColor="#DDDDDD"
-        android:text="Delete Selected Record"
-        android:onClick="deleteRecord"
-        />
-
-    <Button
-        android:id="@id/putRecordsIntoFile"
+        android:id="@+id/putRecordsIntoFile"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"

@@ -28,13 +28,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class TemporaryLocalisation extends ActionBarActivity {
-    private List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>(); //Vsetky udaje o wifi
     private WifiManager wifi;
     private WifiReceiver wifiReceiver;
     private static EditText roomName;
@@ -134,47 +132,11 @@ public class TemporaryLocalisation extends ActionBarActivity {
 
     }
 
-    public void deleteRecord(View view) {
-        boolean exists = false;
-        String roomToDelete = roomName.getText().toString();
-
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM search_data WHERE room_name = '" + roomToDelete + "'", null);
-
-        constantsCursor.moveToFirst();
-
-        while(!constantsCursor.isAfterLast()) {
-            exists = true;
-            break;
-        }
-
-        if (exists) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Really want to delete selected record?").setPositiveButton("Yes", deleteRecordClickListener)
-                    .setNegativeButton("No", deleteRecordClickListener).show();
-
-        }
-        else {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Room does not exists in database!")
-                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .show();
-
-        }
-
-    }
-
     public void putRecordsIntoFile(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Really want to rewrite file?").setPositiveButton("Yes", saveChangesClickListener)
+        builder.setMessage("Really want to rewrite file?")
+                .setPositiveButton("Yes", saveChangesClickListener)
                 .setNegativeButton("No", saveChangesClickListener).show();
 
     }
@@ -236,26 +198,10 @@ public class TemporaryLocalisation extends ActionBarActivity {
         }
     }
 
-    private void deleteSelectedRecord() {
-        //stupid comment
-
-        String[] args = new String[]{roomName.getText().toString()};
-        matMapDatabase.delete("search_data", "room_name=?", args);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Successfully deleted!")
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
-    }
-
     private String getRecordsData() {
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, group_id, timestamp, BSSID, strength, device, SSID FROM search_data ORDER BY room_name", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, group_id, timestamp, BSSID, " +
+                                                  "strength, device, SSID FROM search_data " +
+                                                  "ORDER BY room_name", null);
 
         String answer = "";
 
@@ -289,22 +235,6 @@ public class TemporaryLocalisation extends ActionBarActivity {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     changeFile();
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    //Do nothing
-                    break;
-            }
-        }
-    };
-
-    DialogInterface.OnClickListener deleteRecordClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-
-                    deleteSelectedRecord();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:

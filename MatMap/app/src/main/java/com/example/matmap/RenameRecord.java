@@ -1,24 +1,36 @@
 package com.example.matmap;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class RenameRecord extends ActionBarActivity {
+    private EditText editText;
+    private SQLiteDatabase matMapDatabase = null;
+    private String oldName = "";
+    private String groupId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rename_record);
 
-        String roomName= "";
+        this.editText = (EditText) findViewById(R.id.renameRecordTextField);
+        this.matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            roomName = extras.getString("roomName");
+            this.oldName = extras.getString("roomName");
+            this.groupId = extras.getString("groupId");
         }
-        Log.d("ROOM NAME", roomName);
+        editText.setText(oldName);
     }
 
 
@@ -42,5 +54,73 @@ public class RenameRecord extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Invoked when rename is clicked
+     *
+     * @param view
+     */
+    public void renameRecord(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apply to all records with name " + editText.getText().toString() +"?")
+                .setPositiveButton("Yes", renameRecordsClickListener)
+                .setNegativeButton("No", renameRecordsClickListener).show();
+    }
+
+    /**
+     * Listener for alert dialog when rename is clicked then finish activity
+     */
+    DialogInterface.OnClickListener renameRecordsClickListener =
+            new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            renameAllRecords();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            renameSingleRecord();
+                            break;
+                    }
+                    finish();
+                }
+            };
+
+    /**
+     * Renames just record with specified recordId
+     */
+    public void renameSingleRecord() {
+        ContentValues values = new ContentValues();
+
+        values.put("room_name", this.editText.getText().toString());
+        String[] args = new String[]{this.groupId};
+
+        this.matMapDatabase.update("search_data", values, "group_id = ?", args);
+        values.clear();
+    }
+
+    /**
+     * Renames all records with selected name
+     */
+    public void renameAllRecords() {
+        ContentValues values = new ContentValues();
+
+        values.put("room_name", this.editText.getText().toString());
+        String[] args = new String[]{this.oldName};
+
+        this.matMapDatabase.update("search_data", values, "room_name = ?", args);
+        values.clear();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (matMapDatabase != null) {
+            matMapDatabase.close();
+        }
     }
 }

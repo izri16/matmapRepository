@@ -23,6 +23,7 @@ public class RecordGroup extends ActionBarActivity {
     private Cursor constantsCursor = null;
     private ArrayAdapter<String> adapter;
     private String roomName = "";
+    private int groupId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +61,18 @@ public class RecordGroup extends ActionBarActivity {
         /*
          * Vytiahne id skupiny prave odkliknuteho zaznamu
          */
-        int id = 0;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            id = Integer.valueOf(extras.getString("groupId"));
+            this.groupId = Integer.valueOf(extras.getString("groupId"));
         }
 
         listView = (ListView)findViewById(R.id.singleRecordListView);
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT SSID, STRENGTH, BSSID, _id, room_name FROM search_data WHERE group_id = '" + id + "' ORDER BY _id DESC", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT SSID, STRENGTH, BSSID, _id, room_name " +
+                                                  "FROM search_data WHERE group_id = '" + groupId +
+                                                   "' ORDER BY _id DESC", null);
 
         constantsCursor.moveToFirst();
         this.roomName = constantsCursor.getString(4);
@@ -89,7 +91,8 @@ public class RecordGroup extends ActionBarActivity {
 
         constantsCursor.close();
 
-        listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(), items.toArray().length, String[].class), this));
+        listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(),
+                                                    items.toArray().length, String[].class), this));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -100,6 +103,7 @@ public class RecordGroup extends ActionBarActivity {
 
                 Intent i = new Intent(getApplicationContext(), SingleRecord.class);
                 i.putExtra("recordId", recordId);
+
                 startActivity(i);
 
             }
@@ -110,6 +114,7 @@ public class RecordGroup extends ActionBarActivity {
     private void openRenameRecord() {
         Intent intent = new Intent(this, RenameRecord.class);
         intent.putExtra("roomName", roomName);
+        intent.putExtra("groupId", String.valueOf(groupId));
         startActivity(intent);
     }
 
