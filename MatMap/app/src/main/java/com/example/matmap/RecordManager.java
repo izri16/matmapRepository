@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,12 +89,17 @@ public class RecordManager extends ActionBarActivity {
         while(!constantsCursor.isAfterLast()) {
             int groupId = constantsCursor.getInt(2);
 
+            Log.d("String(0)", constantsCursor.getString(0));
+            Log.d("String(2)", constantsCursor.getString(2));
+
             if (groupId != oldGroupId) {
                 items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
                         constantsCursor.getString(1) + "-del-i-mi-ner-" +
                         constantsCursor.getString(2));
                 oldGroupId = groupId;
+                Log.d("RR", "new record");
             }
+
 
             constantsCursor.moveToNext();
         }
@@ -113,6 +119,7 @@ public class RecordManager extends ActionBarActivity {
 
         recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(),
                                    items.toArray().length, String[].class), this));
+
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

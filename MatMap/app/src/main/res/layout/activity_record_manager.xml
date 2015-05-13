@@ -19,8 +19,9 @@
     <ListView
         android:id="@+id/recordList"
         android:drawSelectorOnTop="false"
+        android:layout_alignParentTop="true"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:fadingEdge="none"
         android:visibility="visible"/>
 </RelativeLayout>

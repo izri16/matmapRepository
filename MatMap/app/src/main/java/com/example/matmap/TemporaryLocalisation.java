@@ -261,6 +261,8 @@ public class TemporaryLocalisation extends ActionBarActivity {
                     groupId = incrementGroupIdRecord();
                 }
 
+                Log.d("GROUP ID", String.valueOf(groupId));
+
                 values.put("room_name", TemporaryLocalisation.roomName.getText().toString());
                 values.put("group_id", groupId);
                 values.put("timestamp", getDateTime());
@@ -298,9 +300,13 @@ public class TemporaryLocalisation extends ActionBarActivity {
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
             groupIdRecord = constantsCursor.getInt(0);
+            Log.d("MAGIC ", String.valueOf(constantsCursor.getInt(0)));
             constantsCursor.moveToNext();
+
+
         }
         constantsCursor.close();
+
 
         String args[] = new String[]{String.valueOf(groupIdRecord)};
         ContentValues values = new ContentValues();
