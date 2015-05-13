@@ -108,15 +108,26 @@ public class Search extends ActionBarActivity {
 
 			}
 	}
-	
+
+    @Override
 	protected void onPause() {
         unregisterReceiver(wifiReceiver);
         super.onPause();
     }
 
+    @Override
     protected void onResume() {
         registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (matMapDatabase != null) {
+            matMapDatabase.close();
+        }
     }
 	
 }

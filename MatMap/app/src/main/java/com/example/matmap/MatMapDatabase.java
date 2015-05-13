@@ -28,12 +28,16 @@ public class MatMapDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //db.execSQL("DROP TABLE IF EXISTS rooms");
-        db.execSQL("CREATE TABLE rooms (_id INTEGER PRIMARY KEY AUTOINCREMENT, room_name TEXT, top_neighbor TEXT, bottom_neighbor TEXT, left_neighbor TEXT, right_neighbor TEXT);");
+        db.execSQL("CREATE TABLE rooms (_id INTEGER PRIMARY KEY AUTOINCREMENT, room_name TEXT, " +
+                   "top_neighbor TEXT, bottom_neighbor TEXT, left_neighbor TEXT, " +
+                   "right_neighbor TEXT);");
         //db.execSQL("DROP TABLE IF EXISTS history");
-        db.execSQL("CREATE TABLE history (_id INTEGER PRIMARY KEY AUTOINCREMENT, room_name TEXT, timestamp REAL);");
+        db.execSQL("CREATE TABLE history (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                   "room_name TEXT, timestamp REAL);");
         //db.execSQL("DROP TABLE IF EXISTS search_data");
-        db.execSQL("CREATE TABLE search_data (_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, timestamp REAL, room_name TEXT, " +
-                    "BSSID TEXT, strength REAL, device TEXT, SSID TEXT);");
+        db.execSQL("CREATE TABLE search_data (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                   "group_id INTEGER, timestamp REAL, room_name TEXT, " +
+                   "BSSID TEXT, strength REAL, device TEXT, SSID TEXT);");
         //db.execSQL("DROP TABLE IF EXISTS ")
         db.execSQL("CREATE TABLE record_group (record_group_id INTEGER);");
 
@@ -155,6 +159,6 @@ public class MatMapDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
+
 }
