@@ -77,7 +77,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
     }
 
     public void openRecordManager() {
-        Intent intent = new Intent(this, RecordManager.class);
+        Intent intent = new Intent(this, RecordsManager.class);
         startActivity(intent);
     }
 

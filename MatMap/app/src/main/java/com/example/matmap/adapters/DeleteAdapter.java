@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,14 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.matmap.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by richard on 26.4.2015.
- */
-public class RecordsDeleteAdapter extends BaseAdapter {
 
+/**
+ * Adapter for DeleteManager Activity.
+ * <p/>
+ * History and RecordManager Activities use this adapter through DeleteManager
+ */
+public class DeleteAdapter extends BaseAdapter {
     private Context context;
     private JSONObject[] data;
     private Activity activity;
@@ -25,8 +29,8 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     private boolean recentSwitch = false;
     private boolean calledFromHistory = false;
 
-    public RecordsDeleteAdapter(Context context, JSONObject[] data, Activity activity,
-                                boolean calledFromHistory) {
+    public DeleteAdapter(Context context, JSONObject[] data, Activity activity,
+                         boolean calledFromHistory) {
         this.context = context;
         this.data = data;
         this.activity = activity;
@@ -64,7 +68,6 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     }
 
     /**
-     *
      * @param position
      * @return checkBox value at position
      */
@@ -76,7 +79,7 @@ public class RecordsDeleteAdapter extends BaseAdapter {
      * Set checkbox value at specified position
      *
      * @param position position of checkbox in the list
-     * @param value boolean value to be set on
+     * @param value    boolean value to be set on
      */
     public void setValueAtPosition(int position, boolean value) {
         this.checked[position] = value;
@@ -158,9 +161,7 @@ public class RecordsDeleteAdapter extends BaseAdapter {
 
         if (this.recentSwitch) {
             cb.setChecked(this.switchToCheckedAll);
-        }
-
-        else {
+        } else {
             if (this.checked[position] == true) {
                 cb.setChecked(true);
             } else {
@@ -184,6 +185,5 @@ public class RecordsDeleteAdapter extends BaseAdapter {
 
         return vi;
     }
-
 
 }

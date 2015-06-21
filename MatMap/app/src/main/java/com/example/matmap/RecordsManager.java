@@ -5,29 +5,34 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.matmap.adapters.AllRecordsAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecordManager extends ActionBarActivity {
+public class RecordsManager extends ActionBarActivity {
     private ListView recordsListView;
-    private List<String> items;
-    private SQLiteDatabase matMapDatabase = null;
-    private Cursor constantsCursor = null;
+    private List<JSONObject> items;
+    private SQLiteDatabase matMapDatabase;
+    private Cursor constantsCursor;
     private TextView noRecords;
     private boolean disableMenu = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_manager);
+        setContentView(R.layout.activity_records_manager);
 
         init();
     }
@@ -36,7 +41,7 @@ public class RecordManager extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_record_manager, menu);
+        getMenuInflater().inflate(R.menu.menu_records_manager, menu);
 
         MenuItem del = menu.findItem(R.id.action_delete_records);
         MenuItem find = menu.findItem(R.id.action_find_record);
@@ -71,7 +76,7 @@ public class RecordManager extends ActionBarActivity {
     }
 
     /**
-     * does all necessary work to initialize all important variables
+     * Does all necessary work to initialize all important variables
      */
     private void init() {
         recordsListView = (ListView)findViewById(R.id.recordList);
@@ -88,15 +93,19 @@ public class RecordManager extends ActionBarActivity {
         while(!constantsCursor.isAfterLast()) {
             int groupId = constantsCursor.getInt(2);
 
-            Log.d("String(0)", constantsCursor.getString(0));
-            Log.d("String(2)", constantsCursor.getString(2));
-
             if (groupId != oldGroupId) {
-                items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                        constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                        constantsCursor.getString(2));
+                JSONObject json = new JSONObject();
+
+                try {
+                    json.put("room_name", constantsCursor.getString(0));
+                    json.put("date", constantsCursor.getString(1));
+                    json.put("group_id", constantsCursor.getString(2));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                items.add(json);
                 oldGroupId = groupId;
-                Log.d("RR", "new record");
             }
 
 
@@ -116,8 +125,8 @@ public class RecordManager extends ActionBarActivity {
             invalidateOptionsMenu();
         }
 
-        recordsListView.setAdapter(new RecordsAdapter(this, Arrays.copyOf(items.toArray(),
-                                   items.toArray().length, String[].class), this));
+        recordsListView.setAdapter(new AllRecordsAdapter(this, Arrays.copyOf(items.toArray(),
+                                   items.toArray().length, JSONObject[].class), this));
 
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -141,7 +150,7 @@ public class RecordManager extends ActionBarActivity {
      * When invoked opens new RecordsDeleteManager activity
      */
     private void openRecordsDeleteManager() {
-        Intent intent = new Intent(this, RecordsDeleteManager.class);
+        Intent intent = new Intent(this, DeleteManager.class);
         intent.putExtra("called_from_history", false);
         startActivity(intent);
     }

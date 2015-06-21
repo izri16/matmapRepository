@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class SingleRecord extends ActionBarActivity {
+public class DetailInfo extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private TextView recordId = null;
@@ -25,7 +25,7 @@ public class SingleRecord extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_record);
+        setContentView(R.layout.activity_detail_info);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -42,7 +42,7 @@ public class SingleRecord extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_single_record, menu);
+        getMenuInflater().inflate(R.menu.menu_detail_info, menu);
         return true;
     }
 

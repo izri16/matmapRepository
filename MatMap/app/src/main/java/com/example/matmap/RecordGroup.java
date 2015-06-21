@@ -9,8 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.matmap.adapters.SingleRecordAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +22,9 @@ import java.util.List;
 
 public class RecordGroup extends ActionBarActivity {
     private ListView listView;
-    private List<String> items;
-    private SQLiteDatabase matMapDatabase = null;
-    private Cursor constantsCursor = null;
-    private ArrayAdapter<String> adapter;
+    private List<JSONObject> items;
+    private SQLiteDatabase matMapDatabase;
+    private Cursor constantsCursor;
     private String roomName = "";
     private int groupId = 0;
 
@@ -79,12 +82,18 @@ public class RecordGroup extends ActionBarActivity {
         getSupportActionBar().setTitle(roomName);
 
         while(!constantsCursor.isAfterLast()) {
+            JSONObject json = new JSONObject();
 
-            items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                    constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                    constantsCursor.getString(2) + "-del-i-mi-ner-" +
-                    constantsCursor.getString(3));
+            try {
+                json.put("ssid", constantsCursor.getString(0));
+                json.put("strength", constantsCursor.getString(1));
+                json.put("bssid", constantsCursor.getString(2));
+                json.put("id", constantsCursor.getString(3));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
+            items.add(json);
             constantsCursor.moveToNext();
         }
 
@@ -92,7 +101,7 @@ public class RecordGroup extends ActionBarActivity {
         constantsCursor.close();
 
         listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(),
-                                                    items.toArray().length, String[].class), this));
+                                                    items.toArray().length, JSONObject[].class), this));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -101,7 +110,7 @@ public class RecordGroup extends ActionBarActivity {
 
                 String recordId = String.valueOf(view.getTag());
 
-                Intent i = new Intent(getApplicationContext(), SingleRecord.class);
+                Intent i = new Intent(getApplicationContext(), DetailInfo.class);
                 i.putExtra("recordId", recordId);
 
                 startActivity(i);

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#222222"
-    tools:context="com.example.matmap.SingleRecord"
+    tools:context="com.example.matmap.DetailInfo"
     >
 
     <LinearLayout

@@ -14,28 +14,27 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
-
+import com.example.matmap.adapters.DeleteAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecordsDeleteManager extends Activity {
+public class DeleteManager extends Activity {
     private ListView recordsListView;
     private List<JSONObject> items;
-    private SQLiteDatabase matMapDatabase = null;
-    private Cursor constantsCursor = null;
-    private RecordsDeleteAdapter recordsAdapter;
+    private SQLiteDatabase matMapDatabase;
+    private Cursor constantsCursor;
+    private DeleteAdapter adapter;
     private boolean switchAll = true;
     private Button deleteButton;
-    private boolean calledFromHistory = false;
+    private boolean calledFromHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_records_delete_manager);
+        setContentView(R.layout.activity_delete_manager);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -47,7 +46,7 @@ public class RecordsDeleteManager extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_records_delete_manager, menu);
+        getMenuInflater().inflate(R.menu.menu_delete_manager, menu);
         return true;
     }
 
@@ -67,7 +66,7 @@ public class RecordsDeleteManager extends Activity {
     }
 
     /**
-     * does all necessary work to initialize all important variables
+     * Does all necessary work to initialize all important variables
      */
     private void init() {
         recordsListView = (ListView)findViewById(R.id.recordDeleteList);
@@ -86,20 +85,20 @@ public class RecordsDeleteManager extends Activity {
             finish();
         }
 
-        this.recordsAdapter = new RecordsDeleteAdapter(this, Arrays.copyOf(items.toArray(),
+        this.adapter = new DeleteAdapter(this, Arrays.copyOf(items.toArray(),
                 items.toArray().length, JSONObject[].class), this, this.calledFromHistory);
-        this.recordsListView.setAdapter(this.recordsAdapter);
+        this.recordsListView.setAdapter(this.adapter);
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                recordsAdapter.setRecentSwitch(false);
-                recordsAdapter.reCheck(position);
-                recordsAdapter.notifyDataSetChanged();
+                adapter.setRecentSwitch(false);
+                adapter.reCheck(position);
+                adapter.notifyDataSetChanged();
 
-                deleteButton.setEnabled(recordsAdapter.checkIfSomeSwitched());
+                deleteButton.setEnabled(adapter.checkIfSomeSwitched());
             }
 
         });
@@ -115,33 +114,33 @@ public class RecordsDeleteManager extends Activity {
         //top panel with 'choose all' text was clicked
         if (!view.equals(view.findViewById(R.id.boxToCheckAll))) {
             CheckBox c = (CheckBox) view.findViewById(R.id.boxToCheckAll);
-            c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
+            c.setChecked(adapter.checkIfSomeNotSwitched());
         }
         //checkbox in 'choose all' panel was clicked
         else {
             CheckBox c = (CheckBox) view;
-            c.setChecked(recordsAdapter.checkIfSomeNotSwitched());
+            c.setChecked(adapter.checkIfSomeNotSwitched());
         }
 
-        int itemsCount = this.recordsAdapter.getCount();
+        int itemsCount = this.adapter.getCount();
 
-        if (recordsAdapter.checkIfSomeNotSwitched()) {
-            recordsAdapter.setSwitchAll(true);
+        if (adapter.checkIfSomeNotSwitched()) {
+            adapter.setSwitchAll(true);
             this.switchAll = true;
             deleteButton.setEnabled(true);
         }
         else {
-            recordsAdapter.setSwitchAll(false);
+            adapter.setSwitchAll(false);
             this.switchAll = false;
             deleteButton.setEnabled(false);
         }
 
-        recordsAdapter.setRecentSwitch(true);
-        recordsAdapter.notifyDataSetChanged();
+        adapter.setRecentSwitch(true);
+        adapter.notifyDataSetChanged();
 
         for (int i = 0; i < itemsCount; i++) {
-            recordsAdapter.setValueAtPosition(i, switchAll);
-            recordsAdapter.getView(i, null, null);
+            adapter.setValueAtPosition(i, switchAll);
+            adapter.getView(i, null, null);
         }
 
     }
@@ -154,10 +153,10 @@ public class RecordsDeleteManager extends Activity {
     public void checkBoxClicked(View view) {
         Integer l = (Integer) view.getTag();
 
-        recordsAdapter.setRecentSwitch(false);
-        recordsAdapter.reCheck(l);
-        recordsAdapter.notifyDataSetChanged();
-        deleteButton.setEnabled(recordsAdapter.checkIfSomeSwitched());
+        adapter.setRecentSwitch(false);
+        adapter.reCheck(l);
+        adapter.notifyDataSetChanged();
+        deleteButton.setEnabled(adapter.checkIfSomeSwitched());
     }
 
     /**
@@ -265,18 +264,19 @@ public class RecordsDeleteManager extends Activity {
      */
     private void delete() {
 
-        if (recordsAdapter.checkIfSomeNotSwitched()) {
+        if (adapter.checkIfSomeNotSwitched()) {
 
             List<String> itemsToDelete = new ArrayList<>();
             StringBuilder whereClause = new StringBuilder();
+            deleteButton.setEnabled(false);
 
             if (this.calledFromHistory) {
                 whereClause.append("_id in (");
 
-                for (int i = 0; i < recordsAdapter.getCount(); i++) {
-                    if (recordsAdapter.getCheckBoxValue(i)) {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (adapter.getCheckBoxValue(i)) {
                         try {
-                            itemsToDelete.add(recordsAdapter.getItem(i).getString("id"));
+                            itemsToDelete.add(adapter.getItem(i).getString("id"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -298,10 +298,10 @@ public class RecordsDeleteManager extends Activity {
 
                 whereClause.append("group_id in (");
 
-                for (int i = 0; i < recordsAdapter.getCount(); i++) {
-                    if (recordsAdapter.getCheckBoxValue(i)) {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (adapter.getCheckBoxValue(i)) {
                         try {
-                            itemsToDelete.add(recordsAdapter.getItem(i).getString("group_id"));
+                            itemsToDelete.add(adapter.getItem(i).getString("group_id"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -318,7 +318,6 @@ public class RecordsDeleteManager extends Activity {
 
                 this.matMapDatabase.delete("search_data", whereClause.toString(), pom);
             }
-
         }
         else {
             if (this.calledFromHistory) {
@@ -329,7 +328,7 @@ public class RecordsDeleteManager extends Activity {
             }
         }
 
-        recordsAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
         if (matMapDatabase != null) {
             matMapDatabase.close();
         }

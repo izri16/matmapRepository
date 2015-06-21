@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,16 +8,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.matmap.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
- * Created by richard on 26.4.2015.
+ * Adapter for RecordsManager Activity
  */
-public class RecordsAdapter extends BaseAdapter {
+public class AllRecordsAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] data;
+    private JSONObject[] data;
     private Activity activity;
 
-    public RecordsAdapter(Context context, String[] data, Activity activity) {
+    public AllRecordsAdapter(Context context, JSONObject[] data, Activity activity) {
         this.context = context;
         this.data = data;
         this.activity = activity;
@@ -25,7 +30,6 @@ public class RecordsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         if (data == null) {
             return 0;
         } else {
@@ -35,37 +39,34 @@ public class RecordsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return data[position];
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         View vi = convertView;
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (vi == null)
             vi = inflater.inflate(R.layout.two_items_row, parent, false);
 
-        String[] elements = data[position].split("-del-i-mi-ner-");
-
         TextView name = (TextView) vi.findViewById(R.id.simpleRecordRoomName);
-        name.setText(elements[0]);
-        TextView time = (TextView) vi.findViewById(R.id.simpleRecordTime);
-        time.setText(elements[1]);
+        TextView date = (TextView) vi.findViewById(R.id.simpleRecordTime);
+        int groupId = 0;
+        try {
+            name.setText(data[position].getString("room_name"));
+            date.setText(data[position].getString("date"));
+            groupId = Integer.valueOf(data[position].getString("group_id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        int groupId = Integer.valueOf(elements[2]);
         vi.setTag(groupId);
-
-        /*TextView id = (TextView) vi.findViewById(R.id.simpleRecordID);
-        id.setText(String.valueOf(groupId));*/
 
         return vi;
     }

@@ -61,10 +61,10 @@
         </activity>
         <activity
             android:name=".TemporaryLocalisation"
-            android:label="@string/title_activity_temporary_localisation" >
+            android:label="MatMap locator" >
         </activity>
         <activity
-            android:name=".RecordManager"
+            android:name=".RecordsManager"
             android:label="@string/title_activity_record_manager" >
         </activity>
         <activity
@@ -72,20 +72,20 @@
             android:label="@string/title_activity_record_group" >
         </activity>
         <activity
-            android:name=".SingleRecord"
-            android:label="@string/title_activity_single_record" >
+            android:name=".DetailInfo"
+            android:label="Detail info" >
         </activity>
         <activity
-            android:name=".RecordsDeleteManager"
+            android:name=".DeleteManager"
             android:label="@string/title_activity_records_delete_manager" >
         </activity>
         <activity
             android:name=".FindRecordByName"
-            android:label="@string/title_activity_find_record_by_name" >
+            android:label="Find records" >
         </activity>
         <activity
             android:name=".RenameRecord"
-            android:label="@string/title_activity_rename_record" >
+            android:label="Rename record" >
         </activity>
     </application>
 

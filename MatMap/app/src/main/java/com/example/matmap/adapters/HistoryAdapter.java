@@ -1,9 +1,5 @@
 package com.example.matmap.adapters;
 
-/**
- * Created by richard on 21.6.2015.
- */
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,16 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.example.matmap.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by richard on 26.4.2015.
+ * Adapter for History Activity
  */
 public class HistoryAdapter extends BaseAdapter {
-
     private Context context;
     private JSONObject[] data;
     private Activity activity;

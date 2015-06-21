@@ -145,7 +145,7 @@ public class History extends ActionBarActivity {
      * Opens DeleteManager Activity to manipulate delete actions
      */
     private void openDeleteManager() {
-        Intent intent = new Intent(this, RecordsDeleteManager.class);
+        Intent intent = new Intent(this, DeleteManager.class);
         intent.putExtra("called_from_history", true);
         startActivity(intent);
     }
