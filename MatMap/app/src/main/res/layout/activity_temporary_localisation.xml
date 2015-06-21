@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -19,8 +20,6 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_below="@id/roomName"
-        android:background="#606060"
-        android:textColor="#DDDDDD"
         android:text="Add new record"
         android:onClick="putNewRecord"
     />
@@ -35,15 +34,27 @@
         android:paddingTop="10dp">
     </ProgressBar>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/spinningProgressBar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/add_record"/>
+
+        </RelativeLayout>
+
     <Button
         android:id="@+id/putRecordsIntoFile"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_alignParentBottom="true"
-        android:background="#333333"
-        android:textColor="#DDDDDD"
         android:text="Put Changes Into File"
+        android:visibility="gone"
         android:onClick="putRecordsIntoFile"
         />
 

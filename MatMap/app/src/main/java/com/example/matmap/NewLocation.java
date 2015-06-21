@@ -8,17 +8,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +30,7 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 		super.onCreate(savedInstanceState);
 
         //kvoli buggu triedy autocomplete lebo inak nevidno text
-        setTheme(android.R.style.Theme);
+        //setTheme(android.R.style.Theme);
         setContentView(R.layout.activity_new_location);
 
         items = new ArrayList<>();

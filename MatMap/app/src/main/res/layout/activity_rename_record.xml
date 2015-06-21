@@ -27,8 +27,6 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:text="Save changes"
-        android:background="#606060"
-        android:textColor="#DDDDDD"
         android:layout_below="@id/renameRecordTextField"
         android:onClick="renameRecord"
         android:layout_centerHorizontal="true"

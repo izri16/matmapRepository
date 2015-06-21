@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

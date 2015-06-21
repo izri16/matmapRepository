@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <!-- ActionBar styles -->
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#1E7E79</item>
+        <item name="android:textColor">#FFFFFF</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@drawable/back2</item>
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <!-- Main Button nine-patch style -->
+    <style name="MyCustomButton" parent="android:Widget.Button">
+        <item name="android:background">@drawable/btn_default_normal_lblue</item>
     </style>
-    
-   
+
+    <!-- Secondary Button nine-patch style -->
+    <style name="MySecondaryButton" parent="android:Widget.Button">
+        <item name="android:background">@drawable/btn_default_normal_lblue</item>
+    </style>
 
 </resources>

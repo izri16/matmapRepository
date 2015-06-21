@@ -74,7 +74,7 @@
         android:id="@id/deleteBox"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#888888"
+        android:background="#223A42"
         android:layout_alignParentBottom="true"
         android:paddingTop="4dp">
 

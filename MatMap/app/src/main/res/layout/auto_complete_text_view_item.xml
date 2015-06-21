@@ -7,6 +7,5 @@
     android:layout_height="70px"
     android:gravity="center"
     android:fadingEdge="none"
-    android:background="#606060"
     android:textSize="25px"
-    android:textColor="#FFFFFF"/>
+    android:textColor="#000000"/>

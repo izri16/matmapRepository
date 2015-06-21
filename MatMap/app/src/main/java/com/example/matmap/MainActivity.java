@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
 public class MainActivity extends ActionBarActivity {
 	public static final String EXTRA_MESSAGE="com.example.myfirstapp.MESSAGE";
 	
