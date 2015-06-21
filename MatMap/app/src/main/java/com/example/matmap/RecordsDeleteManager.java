@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,24 +15,32 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class RecordsDeleteManager extends Activity {
     private ListView recordsListView;
-    private List<String> items;
+    private List<JSONObject> items;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private RecordsDeleteAdapter recordsAdapter;
     private boolean switchAll = true;
     private Button deleteButton;
+    private boolean calledFromHistory = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records_delete_manager);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.calledFromHistory = extras.getBoolean("called_from_history");
+        }
         init();
     }
 
@@ -66,23 +75,11 @@ public class RecordsDeleteManager extends Activity {
         deleteButton = (Button) findViewById(R.id.deleteRecordsDeleteButton);
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
 
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id " +
-                "                           FROM search_data ORDER BY timestamp DESC", null);
-
-        constantsCursor.moveToFirst();
-
-        int oldGroupId = -1;
-        while(!constantsCursor.isAfterLast()) {
-            int groupId = constantsCursor.getInt(2);
-
-            if (groupId != oldGroupId) {
-                items.add(constantsCursor.getString(0) + "-del-i-mi-ner-" +
-                        constantsCursor.getString(1) + "-del-i-mi-ner-" +
-                        constantsCursor.getString(2));
-                oldGroupId = groupId;
-            }
-
-            constantsCursor.moveToNext();
+        // determine from which Activity was this Activity called (created)
+        if (calledFromHistory) {
+            initDeleteHistory();
+        } else {
+            initDeleteRecords();
         }
 
         if (items.isEmpty()) {
@@ -90,7 +87,7 @@ public class RecordsDeleteManager extends Activity {
         }
 
         this.recordsAdapter = new RecordsDeleteAdapter(this, Arrays.copyOf(items.toArray(),
-                items.toArray().length, String[].class), this);
+                items.toArray().length, JSONObject[].class), this, this.calledFromHistory);
         this.recordsListView.setAdapter(this.recordsAdapter);
 
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,10 +175,14 @@ public class RecordsDeleteManager extends Activity {
      * @param view
      */
     public void deleteRecords(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Really want to delete selected records?")
-                .setPositiveButton("Yes", deleteRecordsClickListener)
-                .setNegativeButton("No", deleteRecordsClickListener).show();
+        if (this.calledFromHistory) { // when deleting from history alert dialog is not needed
+            delete();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Really want to delete selected records?")
+                    .setPositiveButton("Yes", deleteRecordsClickListener)
+                    .setNegativeButton("No", deleteRecordsClickListener).show();
+        }
     }
 
     /**
@@ -205,6 +206,61 @@ public class RecordsDeleteManager extends Activity {
     };
 
     /**
+     * Used in init function when Activity is called from RecordManager Activity
+     */
+    private void initDeleteRecords() {
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id " +
+                "                           FROM search_data ORDER BY timestamp DESC", null);
+
+        constantsCursor.moveToFirst();
+
+        int oldGroupId = -1;
+        while(!constantsCursor.isAfterLast()) {
+            int groupId = constantsCursor.getInt(2);
+
+            if (groupId != oldGroupId) {
+
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("room_name", constantsCursor.getString(0));
+                    json.put("date", constantsCursor.getString(1));
+                    json.put("group_id", constantsCursor.getString(2));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                items.add(json);
+                oldGroupId = groupId;
+            }
+
+            constantsCursor.moveToNext();
+        }
+    }
+
+    /**
+     * Used in init function when Activity is called from History Activity
+     */
+    private void initDeleteHistory() {
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, _id" +
+                "                           FROM history ORDER BY timestamp DESC", null);
+
+        constantsCursor.moveToFirst();
+
+        while(!constantsCursor.isAfterLast()) {
+            JSONObject json = new JSONObject();
+            try {
+                json.put("room_name", constantsCursor.getString(0));
+                json.put("date", constantsCursor.getString(1));
+                json.put("id", constantsCursor.getString(2));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            items.add(json);
+            constantsCursor.moveToNext();
+        }
+    }
+
+    /**
      * Deletes selected records from SQLite database
      */
     private void delete() {
@@ -213,27 +269,64 @@ public class RecordsDeleteManager extends Activity {
 
             List<String> itemsToDelete = new ArrayList<>();
             StringBuilder whereClause = new StringBuilder();
-            whereClause.append("group_id in (");
 
-            for (int i = 0; i < recordsAdapter.getCount(); i++) {
-                if (recordsAdapter.getCheckBoxValue(i)) {
-                    String[] pom = recordsAdapter.getItem(i).split("-del-i-mi-ner-");
-                    itemsToDelete.add(pom[2]);
-                    whereClause.append("?,");
+            if (this.calledFromHistory) {
+                whereClause.append("_id in (");
+
+                for (int i = 0; i < recordsAdapter.getCount(); i++) {
+                    if (recordsAdapter.getCheckBoxValue(i)) {
+                        try {
+                            itemsToDelete.add(recordsAdapter.getItem(i).getString("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        whereClause.append("?,");
+                    }
                 }
+
+                whereClause.delete(whereClause.length() - 1, whereClause.length());
+                whereClause.append(")");
+
+                Log.d("WHERE CLAUSE", whereClause.toString());
+
+                String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
+                        String[].class);
+
+
+                this.matMapDatabase.delete("history", whereClause.toString(), pom);
+            } else {
+
+                whereClause.append("group_id in (");
+
+                for (int i = 0; i < recordsAdapter.getCount(); i++) {
+                    if (recordsAdapter.getCheckBoxValue(i)) {
+                        try {
+                            itemsToDelete.add(recordsAdapter.getItem(i).getString("group_id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        whereClause.append("?,");
+                    }
+                }
+
+                whereClause.delete(whereClause.length() - 1, whereClause.length());
+                whereClause.append(")");
+
+                String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
+                        String[].class);
+
+
+                this.matMapDatabase.delete("search_data", whereClause.toString(), pom);
             }
 
-            whereClause.delete(whereClause.length() - 1, whereClause.length());
-            whereClause.append(")");
-
-            String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
-                    String[].class);
-
-
-            this.matMapDatabase.delete("search_data", whereClause.toString(), pom);
         }
         else {
-            this.matMapDatabase.delete("search_data", null, null);
+            if (this.calledFromHistory) {
+                this.matMapDatabase.delete("history", null, null);
+            }
+            else {
+                this.matMapDatabase.delete("search_data", null, null);
+            }
         }
 
         recordsAdapter.notifyDataSetChanged();

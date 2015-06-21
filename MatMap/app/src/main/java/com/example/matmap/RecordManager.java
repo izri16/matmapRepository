@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -143,6 +142,7 @@ public class RecordManager extends ActionBarActivity {
      */
     private void openRecordsDeleteManager() {
         Intent intent = new Intent(this, RecordsDeleteManager.class);
+        intent.putExtra("called_from_history", false);
         startActivity(intent);
     }
 

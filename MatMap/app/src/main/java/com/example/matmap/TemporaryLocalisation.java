@@ -22,14 +22,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class TemporaryLocalisation extends ActionBarActivity {
     private WifiManager wifi;
@@ -264,7 +262,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
 
                 values.put("room_name", TemporaryLocalisation.roomName.getText().toString());
                 values.put("group_id", groupId);
-                values.put("timestamp", getDateTime());
+                values.put("timestamp", MainActivity.getDateTime());
                 values.put("BSSID", sr.BSSID);
                 values.put("strength", sr.level);
                 values.put("device", Build.DEVICE);
@@ -313,13 +311,6 @@ public class TemporaryLocalisation extends ActionBarActivity {
         matMapDatabase.update("record_group", values, "record_group_id=?", args);
 
         return groupIdRecord;
-    }
-
-    private String getDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date date = new Date();
-        return dateFormat.format(date);
     }
 
     @Override

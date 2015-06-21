@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends ActionBarActivity {
 	public static final String EXTRA_MESSAGE="com.example.myfirstapp.MESSAGE";
 	
@@ -66,5 +70,13 @@ public class MainActivity extends ActionBarActivity {
     public void openHistory() {
     	Intent intent = new Intent(this, History.class);
     	startActivity(intent);
+    }
+
+    //STATIC METHODS
+    public static String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

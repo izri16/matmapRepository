@@ -9,23 +9,29 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by richard on 26.4.2015.
  */
 public class RecordsDeleteAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] data;
+    private JSONObject[] data;
     private Activity activity;
     private boolean[] checked;
     private boolean switchToCheckedAll = false;
     private boolean recentSwitch = false;
+    private boolean calledFromHistory = false;
 
-    public RecordsDeleteAdapter(Context context, String[] data, Activity activity) {
+    public RecordsDeleteAdapter(Context context, JSONObject[] data, Activity activity,
+                                boolean calledFromHistory) {
         this.context = context;
         this.data = data;
         this.activity = activity;
         this.checked = new boolean[data.length];
+        this.calledFromHistory = calledFromHistory;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class RecordsDeleteAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public JSONObject getItem(int position) {
         return data[position];
     }
 
@@ -138,12 +144,15 @@ public class RecordsDeleteAdapter extends BaseAdapter {
         if (vi == null)
             vi = inflater.inflate(R.layout.two_items_delete_row, parent, false);
 
-        String[] elements = data[position].split("-del-i-mi-ner-");
-
         TextView name = (TextView) vi.findViewById(R.id.simpleRecordRoomName);
-        name.setText(elements[0]);
         TextView time = (TextView) vi.findViewById(R.id.simpleRecordTime);
-        time.setText(elements[1]);
+
+        try {
+            name.setText(data[position].getString("room_name"));
+            time.setText(data[position].getString("date"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         CheckBox cb = (CheckBox) vi.findViewById(R.id.deleteRecordsBox);
 
@@ -159,10 +168,19 @@ public class RecordsDeleteAdapter extends BaseAdapter {
             }
         }
 
-        int groupId = Integer.valueOf(elements[2]);
-
-        vi.setTag(groupId);
         cb.setTag(position);
+
+        if (!this.calledFromHistory) {
+            int groupId = 0;
+
+            try {
+                groupId = Integer.valueOf(data[position].getString("group_id"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            vi.setTag(groupId);
+        }
 
         return vi;
     }

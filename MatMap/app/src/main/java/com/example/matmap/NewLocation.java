@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class NewLocation extends ActionBarActivity implements AdapterView.OnItemClickListener {
@@ -110,13 +109,13 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 
         if (!alreadyExists(room)) {
             values.put("room_name", room);
-            values.put("timestamp", new Date().getTime());
+            values.put("timestamp", MainActivity.getDateTime());
             matMapDatabase.insert("history", "room_name", values);
             answer = true;
         }
         else {
             String[] args = new String[]{room};
-            values.put("timestamp", new Date().getTime());
+            values.put("timestamp", MainActivity.getDateTime());
             matMapDatabase.update("history", values, "room_name=?", args);
         }
 
