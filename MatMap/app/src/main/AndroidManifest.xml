@@ -87,6 +87,14 @@
             android:name=".record_managers.RenameRecord"
             android:label="Rename record" >
         </activity>
+        <activity
+            android:name=".record_managers.NeighborCreator"
+            android:label="Neighbor creator" >
+        </activity>
+        <activity
+            android:name=".PathViewer"
+            android:label="Path viewer" >
+        </activity>
     </application>
 
 </manifest>

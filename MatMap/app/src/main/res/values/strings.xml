@@ -20,5 +20,7 @@
     <string name="title_activity_records_delete_manager">Delete records</string>
     <string name="title_activity_find_record_by_name">FindRecordByName</string>
     <string name="title_activity_rename_record">RenameRecord</string>
+    <string name="title_activity_neighbour_creator">Neighbour creator</string>
+    <string name="title_activity_path_viewer">PathViewer</string>
 
 </resources>

@@ -156,6 +156,13 @@ public class DeleteManager extends Activity {
     public void checkBoxClicked(View view) {
         Integer l = (Integer) view.getTag();
 
+        /*
+        POKUS
+         */
+        CheckBox c = (CheckBox) findViewById(R.id.boxToCheckAll);
+        c.setChecked(false);
+        ///koniec
+
         adapter.setRecentSwitch(false);
         adapter.reCheck(l);
         adapter.notifyDataSetChanged();

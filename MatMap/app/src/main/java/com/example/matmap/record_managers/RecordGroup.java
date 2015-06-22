@@ -58,6 +58,10 @@ public class RecordGroup extends ActionBarActivity {
             openRenameRecord();
             return true;
         }
+        else if (id == R.id.action_neighbour_creator) {
+            openNeighbourCreator();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -126,6 +130,12 @@ public class RecordGroup extends ActionBarActivity {
         Intent intent = new Intent(this, RenameRecord.class);
         intent.putExtra("roomName", roomName);
         intent.putExtra("groupId", String.valueOf(groupId));
+        startActivity(intent);
+    }
+
+    private void openNeighbourCreator() {
+        Intent intent = new Intent(this, NeighborCreator.class);
+        intent.putExtra("roomName", roomName);
         startActivity(intent);
     }
 

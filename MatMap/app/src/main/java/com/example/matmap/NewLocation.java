@@ -1,8 +1,6 @@
 package com.example.matmap;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,12 +30,17 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
         //setTheme(android.R.style.Theme);
         setContentView(R.layout.activity_new_location);
 
+        init();
+    }
+
+    private void init() {
         items = new ArrayList<>();
         inputField = (AutoCompleteTextView)findViewById(R.id.newLocation);
         inputField.setOnItemClickListener(this);
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM rooms ORDER BY room_name", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT DISTINCT(room_name) FROM search_data " +
+                "ORDER BY room_name", null);
 
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
@@ -45,17 +48,8 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
             constantsCursor.moveToNext();
         }
 
-        inputField.setAdapter(new ArrayAdapter<String>(this, R.layout.auto_complete_text_view_item, R.id.autoCompleteItem,
-                items));
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        constantsCursor.close();
-        matMapDatabase.close();
+        inputField.setAdapter(new ArrayAdapter<String>(this, R.layout.auto_complete_text_view_item,
+                R.id.autoCompleteItem, items));
     }
 
 	@Override
@@ -77,25 +71,30 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String chosenRoom = (String) parent.getAdapter().getItem(position);
-        String title = "Added into history";
-        String message = "Will find shortest path in the future";
+        String destination = (String) parent.getAdapter().getItem(position);
+        addRoomIntoHistory(destination);
 
-        if (!addRoomIntoHistory(chosenRoom)) {
-            title = "Moved to first place in history";
+        Intent intent = new Intent(this, PathViewer.class);
+        intent.putExtra("destination", destination);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        if (matMapDatabase != null) {
+            matMapDatabase.close();
         }
+        init();
+    }
 
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .show();
+        constantsCursor.close();
+        matMapDatabase.close();
     }
 
     public void openHelp(View view) {
@@ -124,7 +123,8 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 
     private boolean alreadyExists(String room) {
         boolean answer = false;
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM history WHERE room_name = '" + room + "'", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT room_name FROM history " +
+                "WHERE room_name = '" + room + "'", null);
 
         constantsCursor.moveToFirst();
 

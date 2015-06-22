@@ -7,4 +7,9 @@
         android:title="Rename record"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_neighbour_creator"
+        android:title="Neighbour creator"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

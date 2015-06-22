@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.example.matmap.adapters.HistoryAdapter;
 import com.example.matmap.record_managers.DeleteManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,14 +133,12 @@ public class History extends ActionBarActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 String destination = String.valueOf(view.getTag());
-
-                /*Intent i = new Intent(getApplicationContext(), RecordGroup.class);
-                i.putExtra("groupId", groupId);
-
-                startActivity(i);*/
                 Log.d("Destination", destination);
+
+                Intent i = new Intent(getApplicationContext(), PathViewer.class);
+                i.putExtra("destination", destination);
+                startActivity(i);
             }
         });
     }

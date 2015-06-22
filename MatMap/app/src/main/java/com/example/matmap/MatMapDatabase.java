@@ -41,8 +41,15 @@ public class MatMapDatabase extends SQLiteOpenHelper {
                    "group_id INTEGER, timestamp REAL, room_name TEXT, " +
                    "BSSID TEXT, strength REAL, device TEXT, SSID TEXT);");
 
-        //db.execSQL("DROP TABLE IF EXISTS ")
+        //db.execSQL("DROP TABLE IF EXISTS record_group")
         db.execSQL("CREATE TABLE record_group (record_group_id INTEGER);");
+
+        //db.execSQL("DROP TABLE IF EXISTS neighbours")
+        db.execSQL("CREATE TABLE neighbors (" +
+                "room_name, " +
+                "neighbor, " +
+                "PRIMARY KEY (room_name, neighbor) " +
+        ");");
 
         ContentValues cv = new ContentValues();
 
