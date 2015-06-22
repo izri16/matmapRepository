@@ -17,24 +17,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.example.myfirstapp" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7f74054-d89c-4b32-b030-c0e63117d109" name="Default" comment="update: finish Ne&#10;&#10;* record_managers package full name com.example.matmap.record_managers package was created to join all activities related with record&#10;&#10;* Activity FindRecordsByName was finished">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/record_managers/NeighborCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/PathViewer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_neighbor_creator.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_path_viewer.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_neighbor_creator.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_path_viewer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/record_managers/DeleteManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/record_managers/DeleteManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/History.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/History.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/MatMapDatabase.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/MatMapDatabase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/NewLocation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/NewLocation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/matmap/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/matmap/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/record_managers/RecordGroup.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matmap/record_managers/RecordGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_record_group.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_record_group.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" />
+    <list default="true" id="d7f74054-d89c-4b32-b030-c0e63117d109" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MatMap.iws" />
@@ -1681,7 +1664,11 @@
       <created>1434964957164</created>
       <updated>1434964957164</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="update: finish Neighbor creator &#10;&#10;* NeighborCreator Activity was finished&#10;&#10;* PathViewer Activity was created">
+      <created>1435003666711</created>
+      <updated>1435003666711</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1775,7 +1762,8 @@
     <MESSAGE value="update: changed history&#10;&#10;* History has same UI as RecordsManager Activity including delete part. RecordsDeleteAdapter and RecordsDeleteManager works now for history too" />
     <MESSAGE value="update: big refactoring&#10;&#10;* All adapters are in separated package called adapters&#10;&#10;* DeleteManager works for both Records and History&#10;&#10;* Some Activities were renamed to different names" />
     <MESSAGE value="update: new package and Activity&#10;&#10;* record_managers package full name com.example.matmap.record_managers package was created to join all activities related with record&#10;&#10;* Activity FindRecordsByName was finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: new package and Activity&#10;&#10;* record_managers package full name com.example.matmap.record_managers package was created to join all activities related with record&#10;&#10;* Activity FindRecordsByName was finished" />
+    <MESSAGE value="update: finish Neighbor creator &#10;&#10;* NeighborCreator Activity was finished&#10;&#10;* PathViewer Activity was created" />
+    <option name="LAST_COMMIT_MESSAGE" value="update: finish Neighbor creator &#10;&#10;* NeighborCreator Activity was finished&#10;&#10;* PathViewer Activity was created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1947,6 +1935,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1155">
           <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#926#927#0" expanded="false" />
+            <element signature="e#963#964#0" expanded="false" />
+            <element signature="e#1020#1021#0" expanded="false" />
+            <element signature="e#1051#1052#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1954,6 +1949,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="915" max-vertical-offset="1785">
           <caret line="71" column="76" selection-start-line="71" selection-start-column="76" selection-end-line="71" selection-end-column="76" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1961,6 +1957,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1968,6 +1965,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="643" max-vertical-offset="1185">
           <caret line="60" column="58" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2005,6 +2003,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="2760">
           <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
