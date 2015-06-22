@@ -1668,7 +1668,11 @@
       <created>1435003666711</created>
       <updated>1435003666711</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="update: finish Neighbor creator &#10;&#10;* NeighborCreator Activity was finished&#10;&#10;* PathViewer Activity was created">
+      <created>1435003712344</created>
+      <updated>1435003712344</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
