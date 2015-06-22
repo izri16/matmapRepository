@@ -23,6 +23,11 @@ public class Locator {
         return location;
     }
 
+    Location addLocation(Location l) {
+        this.locations.add(l);
+        return l;
+    }
+
     String localize(List<WifiInfo> scan) {
         String max_loc = "";
         Double max_prob = 1.0;
