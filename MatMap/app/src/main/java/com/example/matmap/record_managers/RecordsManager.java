@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.record_managers;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.matmap.MatMapDatabase;
+import com.example.matmap.R;
 import com.example.matmap.adapters.AllRecordsAdapter;
 
 import org.json.JSONException;
@@ -28,11 +30,19 @@ public class RecordsManager extends ActionBarActivity {
     private Cursor constantsCursor;
     private TextView noRecords;
     private boolean disableMenu = false;
+    private boolean filter = false;
+    private String filterRoom = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records_manager);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.filter = extras.getBoolean("filter");
+            this.filterRoom = extras.getString("filter_room");
+        }
 
         init();
     }
@@ -83,9 +93,18 @@ public class RecordsManager extends ActionBarActivity {
         items = new ArrayList<>();
 
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT room_name, timestamp, group_id " +
-                                                  "FROM search_data ORDER BY timestamp DESC",
-                                                   null);
+
+        String query= "";
+        if (!filter) {
+            query = "SELECT room_name, timestamp, group_id " +
+                    "FROM search_data ORDER BY timestamp DESC";
+        } else {
+            query = "SELECT room_name, timestamp, group_id " +
+                    "FROM search_data WHERE room_name = '" + filterRoom + "'" +
+                    "ORDER BY timestamp DESC";
+        }
+
+        constantsCursor = matMapDatabase.rawQuery(query, null);
 
         constantsCursor.moveToFirst();
 
@@ -159,7 +178,7 @@ public class RecordsManager extends ActionBarActivity {
      * When invoked opens new FindRecordByName activity
      */
     private void openFindRecordByName() {
-        Intent intent = new Intent(this, FindRecordByName.class);
+        Intent intent = new Intent(this, FindRecordsByName.class);
         startActivity(intent);
     }
 

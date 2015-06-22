@@ -8,7 +8,7 @@
     	matmap:showAsAction="always"/>
     
     <item android:id="@+id/action_new_location"
-        android:title="@string/action_new_location"
+        android:title="New location"
         android:icon="@drawable/ic_action_place"
         matmap:showAsAction="always"/>
     
@@ -18,7 +18,7 @@
         matmap:showAsAction="always" />
 
     <item android:id="@+id/action_temporary_localization"
-        android:title="Temporary Localization"
+        android:title="Temporary localisation"
         matmap:showAsAction="never" />
         	
 

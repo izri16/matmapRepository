@@ -64,27 +64,27 @@
             android:label="MatMap locator" >
         </activity>
         <activity
-            android:name=".RecordsManager"
+            android:name=".record_managers.RecordsManager"
             android:label="@string/title_activity_record_manager" >
         </activity>
         <activity
-            android:name=".RecordGroup"
+            android:name=".record_managers.RecordGroup"
             android:label="@string/title_activity_record_group" >
         </activity>
         <activity
-            android:name=".DetailInfo"
+            android:name=".record_managers.DetailInfo"
             android:label="Detail info" >
         </activity>
         <activity
-            android:name=".DeleteManager"
+            android:name=".record_managers.DeleteManager"
             android:label="@string/title_activity_records_delete_manager" >
         </activity>
         <activity
-            android:name=".FindRecordByName"
+            android:name=".record_managers.FindRecordsByName"
             android:label="Find records" >
         </activity>
         <activity
-            android:name=".RenameRecord"
+            android:name=".record_managers.RenameRecord"
             android:label="Rename record" >
         </activity>
     </application>

@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:background="#222222"
     android:orientation="vertical"
-    tools:context="com.example.matmap.DeleteManager">
+    tools:context="com.example.matmap.record_managers.DeleteManager">
 
     <LinearLayout
         android:layout_alignParentTop="true"

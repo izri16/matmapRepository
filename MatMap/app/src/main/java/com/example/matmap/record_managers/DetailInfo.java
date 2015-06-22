@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.record_managers;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.matmap.MatMapDatabase;
+import com.example.matmap.R;
 
 public class DetailInfo extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;

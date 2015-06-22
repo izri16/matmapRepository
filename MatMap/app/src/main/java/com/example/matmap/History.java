@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.example.matmap.adapters.HistoryAdapter;
+import com.example.matmap.record_managers.DeleteManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;

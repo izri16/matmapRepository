@@ -8,7 +8,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
-    tools:context="com.example.matmap.RenameRecord">
+    tools:context="com.example.matmap.record_managers.RenameRecord">
 
     <EditText
         android:id="@+id/renameRecordTextField"

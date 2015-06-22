@@ -20,8 +20,8 @@ import java.util.List;
 
 public class NewLocation extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private AutoCompleteTextView inputField;
-    private SQLiteDatabase matMapDatabase = null;
-    private Cursor constantsCursor = null;
+    private SQLiteDatabase matMapDatabase;
+    private Cursor constantsCursor;
     private List<String> items;
 
 	@Override

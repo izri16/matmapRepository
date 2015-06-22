@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.record_managers;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.matmap.MatMapDatabase;
+import com.example.matmap.R;
 
 public class RenameRecord extends ActionBarActivity {
     private EditText editText;

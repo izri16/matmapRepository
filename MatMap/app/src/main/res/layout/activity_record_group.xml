@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222222"
-    tools:context="com.example.matmap.RecordGroup">
+    tools:context="com.example.matmap.record_managers.RecordGroup">
 
     <ListView
         android:id="@+id/singleRecordListView"

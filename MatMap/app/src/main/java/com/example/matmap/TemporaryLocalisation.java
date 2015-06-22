@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.example.matmap.record_managers.RecordsManager;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

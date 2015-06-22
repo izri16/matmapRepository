@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.record_managers;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+
+import com.example.matmap.MatMapDatabase;
+import com.example.matmap.R;
 import com.example.matmap.adapters.DeleteAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;

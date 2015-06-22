@@ -1,4 +1,4 @@
-package com.example.matmap;
+package com.example.matmap.record_managers;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.matmap.MatMapDatabase;
+import com.example.matmap.R;
 import com.example.matmap.adapters.SingleRecordAdapter;
 
 import org.json.JSONException;
