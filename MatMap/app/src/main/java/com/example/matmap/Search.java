@@ -108,15 +108,10 @@ public class Search extends ActionBarActivity {
                 List<ScanResult> scanList = wifi.getScanResults();
 				List<WifiInfo> tempDates = new ArrayList<WifiInfo>();
 				
-				//String testString = "";
-				
 				for (int i = 0; i < scanList.size(); i++) {
 					ScanResult sr = scanList.get(i);
 					WifiInfo wifiInfo = new WifiInfo(sr.SSID, sr.BSSID, sr.capabilities, String.valueOf(sr.level));
 					tempDates.add(wifiInfo);
-
-                    //testString += i + ": " + sr.SSID + " " + sr.BSSID + " " + sr.capabilities + " ";
-                    //testString += String.valueOf(sr.level) + "\n";
 				}
 				
 				wifiInfoList = tempDates;
