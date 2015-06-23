@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Locator {
     final Double PROBAB_ZERO = 0.001;
-    final Integer S_MAX = 100;
+    final Double S_MAX = 100.0;
     private ArrayList<Location> locations = new ArrayList<>();
     Locator Locator() {
         return this;
@@ -31,29 +31,54 @@ public class Locator {
     String localize(List<WifiInfo> scan) {
         String max_loc = "";
         Double max_prob = 1.0;
-
+        Log.d("localize", "init");
         for(Location loc: this.locations) {
             Double prob = 1.0;
-
+            Log.d("localize", "location: " + loc.getName());
             for(WifiInfo wifi: scan) {
                 Double signal = loc.getAPSignal(wifi.getBSSID().toLowerCase());
+                Double strength = Locator.dBmToQuality(wifi.getStrength());
+
+                Log.d("localize", "prob=" + prob);
+
                 if (signal == null) {
                     prob *= PROBAB_ZERO;
                 } else {
-                    prob *= this.p(signal, wifi.getStrength());
+                    prob *= this.p(signal, strength);
                 }
             }
-            Log.d("as", prob + " " + loc.getName());
+            Log.d("localize", "computed probability: " + prob + " " + loc.getName());
             if (prob > max_prob) {
                 max_loc = loc.getName();
                 max_prob = prob;
             }
         }
+        Log.d("localize", "after");
 
         return max_loc;
     }
 
-    Double p(Double Li, Integer fi) {
+    public static Double dBmToQuality(Integer dBm) {
+        if (dBm <= -100) {
+            return new Double(0.0);
+        } else if (dBm >= -50) {
+            return new Double(100.0);
+        } else {
+            return new Double(2 * (dBm + 100));
+        }
+    }
+
+    public static Double dBmToQuality(Double dBm) {
+        if (dBm <= -100) {
+            return new Double(0.0);
+        } else if (dBm >= -50) {
+            return new Double(100.0);
+        } else {
+            return new Double(2 * (dBm + 100));
+        }
+    }
+
+    Double p(Double Li, Double fi) {
         return S_MAX - Math.abs(Li - fi);
     }
 }
