@@ -28,16 +28,40 @@ public class Search extends ActionBarActivity {
     private ImageView unknownLocationImage;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
+    private Locator locator;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 
+
+        locator = new Locator();
         matMapDatabase = (new MatMapDatabase(this)).getReadableDatabase();
         constantsCursor = matMapDatabase.rawQuery("SELECT d.room_name, d.bssid, avg(d.strength) " +
                                                   "FROM search_data d GROUP BY d.room_name", null);
         constantsCursor.moveToFirst();
+        String lastRoomName = "";
+        Location lastLocation = null;
         while(!constantsCursor.isAfterLast()) {
+            String roomName = constantsCursor.getString(0);
+            String bssid = constantsCursor.getString(1);
+            Double strength = constantsCursor.getDouble(2);
+
+            if (lastLocation == null) {
+                lastRoomName = roomName;
+                lastLocation = new Location();
+            } else if (!lastRoomName.equals(roomName)) {
+                // after we finished adding stuff for one location (room) we can add it
+                // to the Locator
+                locator.addLocation(lastLocation);
+
+                lastRoomName = roomName;
+                lastLocation = new Location();
+            }
+
+            lastLocation.addAP(bssid, strength);
+
+
             Log.d("ROOM_NAME", constantsCursor.getString(0));
             Log.d("BSSID", constantsCursor.getString(1));
             Log.d("STRENGTH", String.valueOf(constantsCursor.getDouble(2)));
@@ -97,7 +121,7 @@ public class Search extends ActionBarActivity {
 				
 				wifiInfoList = tempDates;
 
-                Locator locator = new Locator();
+
 
                 String place = locator.localize(tempDates);
                 if (place.equals("")) {
