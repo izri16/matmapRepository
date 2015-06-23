@@ -13,6 +13,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +31,8 @@ public class Search extends ActionBarActivity {
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
     private Locator locator;
-	
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
@@ -82,7 +85,6 @@ public class Search extends ActionBarActivity {
 
         //Test ci je wifi zapnuta
         if (!wifi.isWifiEnabled()) {
-            //textView.setText("STE OFF");
             new AlertDialog.Builder(this)
                     .setTitle("No connection!")
                     .setIcon(R.drawable.no_wifi)
@@ -98,7 +100,6 @@ public class Search extends ActionBarActivity {
         }
 
         wifi.startScan();
-		
 
 	}
 	
@@ -129,6 +130,28 @@ public class Search extends ActionBarActivity {
 
 			}
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.history, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_history) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
 	protected void onPause() {

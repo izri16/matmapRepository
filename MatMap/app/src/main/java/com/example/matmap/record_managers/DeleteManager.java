@@ -61,7 +61,8 @@ public class DeleteManager extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete_from_other_db) {
+            this.deleteFromOtherDB();
             return true;
         }
 
@@ -275,7 +276,6 @@ public class DeleteManager extends Activity {
     private void delete() {
 
         if (adapter.checkIfSomeNotSwitched()) {
-
             List<String> itemsToDelete = new ArrayList<>();
             StringBuilder whereClause = new StringBuilder();
             deleteButton.setEnabled(false);
@@ -325,7 +325,6 @@ public class DeleteManager extends Activity {
                 String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
                         String[].class);
 
-
                 this.matMapDatabase.delete("search_data", whereClause.toString(), pom);
             }
         }
@@ -335,6 +334,8 @@ public class DeleteManager extends Activity {
             }
             else {
                 this.matMapDatabase.delete("search_data", null, null);
+                this.matMapDatabase.delete("history", null, null);
+                this.matMapDatabase.delete("neighbors", null, null);
             }
         }
 
@@ -345,6 +346,99 @@ public class DeleteManager extends Activity {
         init();
     }
 
+    public void deleteFromOtherDB() {
+        deleteRoomsFromNeighbors();
+        deleteNeighborsFromNeighbors();
+        deleteNamesFromHistory();
+    }
+
+    private void deleteRoomsFromNeighbors() {
+        String query = "SELECT DISTINCT(room_name) FROM neighbors";
+        boolean del = true;
+        constantsCursor = matMapDatabase.rawQuery(query, null);
+        constantsCursor.moveToFirst();
+
+        while(!constantsCursor.isAfterLast()) {
+            Cursor c = matMapDatabase.rawQuery("SELECT room_name FROM search_data" +
+                    " WHERE room_name = '" + constantsCursor.getString(0) + "'", null);
+
+            c.moveToFirst();
+            while(!c.isAfterLast()) {
+                del = false;
+                break;
+            }
+            c.close();
+
+            if (del) {
+                String[] d = {constantsCursor.getString(0)};
+                matMapDatabase.delete("neighbors", "room_name = ?", d);
+            }
+            del = true;
+
+            constantsCursor.moveToNext();
+        }
+
+        constantsCursor.close();
+    }
+
+    private void deleteNeighborsFromNeighbors() {
+        String query = "SELECT DISTINCT(neighbor) FROM neighbors";
+        boolean del = true;
+        constantsCursor = matMapDatabase.rawQuery(query, null);
+        constantsCursor.moveToFirst();
+
+        while(!constantsCursor.isAfterLast()) {
+            Cursor c = matMapDatabase.rawQuery("SELECT room_name FROM search_data" +
+                    " WHERE room_name = '" + constantsCursor.getString(0) + "'", null);
+
+            c.moveToFirst();
+            while(!c.isAfterLast()) {
+                del = false;
+                break;
+            }
+            c.close();
+
+            if (del) {
+                String[] d = {constantsCursor.getString(0)};
+                matMapDatabase.delete("neighbors", "neighbor = ?", d);
+            }
+            del = true;
+
+            constantsCursor.moveToNext();
+        }
+
+        constantsCursor.close();
+    }
+
+    private void deleteNamesFromHistory() {
+        String query = "SELECT DISTINCT(room_name) FROM history";
+        boolean del = true;
+        constantsCursor = matMapDatabase.rawQuery(query, null);
+        constantsCursor.moveToFirst();
+
+        while(!constantsCursor.isAfterLast()) {
+            Cursor c = matMapDatabase.rawQuery("SELECT room_name FROM search_data" +
+                    " WHERE room_name = '" + constantsCursor.getString(0) + "'", null);
+
+            c.moveToFirst();
+            while(!c.isAfterLast()) {
+                del = false;
+                break;
+            }
+            c.close();
+
+            if (del) {
+                String[] d = {constantsCursor.getString(0)};
+                matMapDatabase.delete("history", "room_name = ?", d);
+            }
+            del = true;
+
+            constantsCursor.moveToNext();
+        }
+
+        constantsCursor.close();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -353,4 +447,5 @@ public class DeleteManager extends Activity {
             matMapDatabase.close();
         }
     }
+
 }

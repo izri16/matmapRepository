@@ -36,7 +36,6 @@ public class History extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history);
 
-        Log.d("ON", "CREATE");
         init();
 	}
 
@@ -72,7 +71,6 @@ public class History extends ActionBarActivity {
     @Override
     public void onRestart() {
         super.onRestart();
-        Log.d("ON", "RESTART");
 
         if (matMapDatabase != null) {
             matMapDatabase.close();
@@ -83,40 +81,10 @@ public class History extends ActionBarActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("ON", "DESTROY");
 
         constantsCursor.close();
         matMapDatabase.close();
     }
-
-    //
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("ON", "RESUME");
-
-        constantsCursor.close();
-        matMapDatabase.close();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("ON", "START");
-
-        constantsCursor.close();
-        matMapDatabase.close();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("ON", "STOP");
-
-        constantsCursor.close();
-        matMapDatabase.close();
-    }
-    //
 
     /**
      * does all necessary work to initialize all important properties
