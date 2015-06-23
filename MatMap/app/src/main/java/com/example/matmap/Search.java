@@ -38,36 +38,38 @@ public class Search extends ActionBarActivity {
         locator = new Locator();
         matMapDatabase = (new MatMapDatabase(this)).getReadableDatabase();
         constantsCursor = matMapDatabase.rawQuery("SELECT d.room_name, d.bssid, avg(d.strength) " +
-                                                  "FROM search_data d GROUP BY d.room_name", null);
+                                                  "FROM search_data d " +
+                                                  "GROUP BY d.room_name, d.bssid", null);
         constantsCursor.moveToFirst();
         String lastRoomName = "";
         Location lastLocation = null;
         while(!constantsCursor.isAfterLast()) {
             String roomName = constantsCursor.getString(0);
             String bssid = constantsCursor.getString(1);
-            Double strength = constantsCursor.getDouble(2);
+            Double strength = Locator.dBmToQuality(constantsCursor.getDouble(2));
 
             if (lastLocation == null) {
                 lastRoomName = roomName;
-                lastLocation = new Location();
+                lastLocation = new Location().setName(roomName);
             } else if (!lastRoomName.equals(roomName)) {
                 // after we finished adding stuff for one location (room) we can add it
                 // to the Locator
                 locator.addLocation(lastLocation);
 
                 lastRoomName = roomName;
-                lastLocation = new Location();
+                lastLocation = new Location().setName(roomName);
             }
 
             lastLocation.addAP(bssid, strength);
 
 
-            Log.d("ROOM_NAME", constantsCursor.getString(0));
-            Log.d("BSSID", constantsCursor.getString(1));
-            Log.d("STRENGTH", String.valueOf(constantsCursor.getDouble(2)));
+            Log.d("ROOM_NAME", roomName);
+            Log.d("BSSID", bssid);
+            Log.d("STRENGTH", String.valueOf(strength));
 
             constantsCursor.moveToNext();
         }
+        locator.addLocation(lastLocation);
 
         textView = (TextView)findViewById(R.id.locationMessage);
 		wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
