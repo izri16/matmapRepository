@@ -19,8 +19,8 @@ Funkcionalita aplikácie:
  
  Pokiaľ užívateľ klikne na jednu z wifín zobrazia sa mu o nej kompletné informácie.
  
- 5. Čo sa plánovalo a nestihlo
-  Trasu sme pôvodne plánovali vizualizovať nielen vypísať, avšak vytvorenie užitočného vytvárača záznamov (Record creator) zabralo značnú časť času a jeho úloha sa ukázala byť celkom kľúčová. Druhým dôvodom bola pomerne zložitá práca z obrázkami, ktoré sa nezmestia do pamäte a snaha urobiť lokalizáciu čo najviac všeobecnú bez viazania sa na konkrétne miesto.
-UI je značne obmedzené z dôvodu vývoja pod pomerne starým zariadením, ktoré nepodporuje viaceré vlastnosti nových GUI. Výhodou je však podpora na takmer ľubovolnom zariadení so systémom Android.
+ Čo sa plánovalo a nestihlo
+Trasu sme pôvodne plánovali vizualizovať nielen vypísať, avšak vytvorenie užitočného vytvárača záznamov (Record creator) zabralo značnú časť času a jeho úloha sa ukázala byť celkom kľúčová. Druhým dôvodom bola pomerne zložitá práca z obrázkami, ktoré sa nezmestia do pamäte a snaha urobiť lokalizáciu čo najviac všeobecnú bez viazania sa na konkrétne miesto.
+UI je značne obmedzené z dôvodu vývoja pod pomerne starým zariadením, ktoré nepodporuje viaceré vlastnosti nových UI prvkov. Výhodou je však podpora na takmer ľubovolnom zariadení so systémom Android.
  
 
