@@ -43,6 +43,7 @@ public class PathViewer extends ActionBarActivity {
     private TextView headerMessage;
     private TextView bodyMessage;
     private TextView pointsToFollow;
+    private boolean canRun = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,9 @@ public class PathViewer extends ActionBarActivity {
         constantsCursor.moveToFirst();
         String lastRoomName = "";
         Location lastLocation = null;
+        canRun = false;
         while(!constantsCursor.isAfterLast()) {
+            canRun = true;
             String roomName = constantsCursor.getString(0);
             String bssid = constantsCursor.getString(1);
             Double strength = Locator.dBmToQuality(constantsCursor.getDouble(2));
@@ -234,7 +237,10 @@ public class PathViewer extends ActionBarActivity {
 
             wifiInfoList = tempDates;
 
-            String place = locator.localize(tempDates);
+            String place = "";
+            if (canRun) {
+                place = locator.localize(tempDates);
+            }
             if (place.equals("")) {
                 place = "a location we do not know about yet";
                 unknownLocationImage.setVisibility(View.VISIBLE);

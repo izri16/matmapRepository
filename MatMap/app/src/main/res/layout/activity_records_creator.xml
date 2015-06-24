@@ -13,12 +13,16 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:textColor="#FFFFFF"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_alignParentTop="true"/>
 
     <Button
         android:id="@+id/temporaryLocalizationButton"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_below="@id/roomName"
         android:text="Add new record"
         android:onClick="putNewRecord"

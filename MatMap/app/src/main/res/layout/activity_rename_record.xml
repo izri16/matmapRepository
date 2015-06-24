@@ -15,6 +15,8 @@
         android:layout_width="fill_parent"
         android:gravity="center"
         android:text=""
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
         android:textSize="50px"
         android:layout_height="70dp"
@@ -29,6 +31,8 @@
         android:text="Save changes"
         android:layout_below="@id/renameRecordTextField"
         android:onClick="renameRecord"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_centerHorizontal="true"
         android:padding="10dp"/>
 

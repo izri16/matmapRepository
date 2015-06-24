@@ -64,7 +64,7 @@
         </activity>
         <activity
             android:name=".record_managers.DeleteManager"
-            android:label="@string/title_activity_records_delete_manager" >
+            android:label="Delete manager" >
         </activity>
         <activity
             android:name=".record_managers.FindRecordsByName"

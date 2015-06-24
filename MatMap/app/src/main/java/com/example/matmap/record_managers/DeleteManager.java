@@ -1,11 +1,11 @@
 package com.example.matmap.record_managers;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +29,7 @@ import java.util.List;
  * Responsible for deleting records from search_data, history and in some cases neighbors
  * tables in database
  */
-public class DeleteManager extends Activity {
+public class DeleteManager extends ActionBarActivity {
     private ListView recordsListView;
     private List<JSONObject> items;
     private SQLiteDatabase matMapDatabase;

@@ -12,15 +12,6 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/deleteBox">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:textColor="#FFFFFF"
-        android:paddingLeft="20dp"
-        android:paddingBottom="3dp"
-        android:paddingTop="3dp"/>
-
     <RelativeLayout
         android:id="@+id/deleteRecordsChooseAllPanel"
         android:layout_width="fill_parent"
