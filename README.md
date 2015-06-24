@@ -13,15 +13,15 @@ Funkcionalita aplikácie:
 
  Manažér záznamov (Record manager)
  
- Zobrazí sa zoznam všetkých záznamov. V menu sú možnosti Zmazať a Vyhľadať podľa mena. V časi zmazať je v skrytom menu ešte možnosť 'Vyčistiť históriu a susedov', ktorá zmaže z týchto miest riadky, ktoré boli už vymazané zo záznamov. V prípade, že užívaťeľ zvolí možnosť vymazať všetky záznamy sa tieto vymažú automaticky. 
+ Zobrazí sa zoznam všetkých záznamov. V menu sú možnosti Zmazať a Vyhľadať podľa mena. V časti zmazať je v skrytom menu ešte možnosť 'Vyčistiť históriu a susedov', ktorá zmaže z týchto miest riadky, ktoré boli už vymazané zo záznamov. V prípade, že užívaťeľ zvolí možnosť vymazať všetky záznamy sa tieto vymažú automaticky. 
  
- Po kliknutí na konkrétny záznam sa zobrazia údaje o všetkých wifinách, ktoré boli pre daný záznam namerané. V tejto časti nájde v menu užívateľ možnosť vytvoriť susedov, čo je spôsob ako prepojiť body aby sa v nich dala hľadať cesta. Rovnako je tu možnosť premenovať daný záznam a aplikovať zmeny buď na jeden konkrétny alebo všetky záznamy z daným názvom.
+ Po kliknutí na konkrétny záznam sa zobrazia údaje o všetkých wifinách, ktoré boli pre daný záznam namerané. V tejto časti nájde v menu užívateľ možnosť vytvoriť susedov, čo je spôsob ako prepojiť body aby sa v nich dala hľadať cesta. Rovnako je tu možnosť premenovať daný záznam a aplikovať zmeny buď na jeden konkrétny alebo všetky záznamy s daným názvom.
  
  Pokiaľ užívateľ klikne na jednu z wifín zobrazia sa mu o nej kompletné informácie.
  
 Čo sa plánovalo a nestihlo:
  
-Trasu sme pôvodne plánovali vizualizovať nielen vypísať, avšak vytvorenie užitočného vytvárača záznamov (Record creator) zabralo značnú časť času a jeho úloha sa ukázala byť celkom kľúčová. Druhým dôvodom bola pomerne zložitá práca z obrázkami, ktoré sa nezmestia do pamäte a snaha urobiť lokalizáciu čo najviac všeobecnú bez viazania sa na konkrétne miesto.
+Trasu sme pôvodne plánovali vizualizovať nielen vypísať, avšak vytvorenie užitočného vytvárača záznamov (Record creator) zabralo značnú časť času a jeho úloha sa ukázala byť celkom kľúčová. Druhým dôvodom bola pomerne zložitá práca s obrázkami, ktoré sa nezmestia do pamäte a snaha urobiť lokalizáciu čo najviac všeobecnú bez viazania sa na konkrétne miesto.
 
 UI je značne obmedzené z dôvodu vývoja pod pomerne starým zariadením, ktoré nepodporuje viaceré vlastnosti nových UI prvkov. Výhodou je však podpora na takmer ľubovolnom zariadení so systémom Android.
  
