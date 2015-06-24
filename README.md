@@ -1,34 +1,26 @@
 matmapRepository
 ================
-Aktuálna funkcionalita aplikácie: 
+Funkcionalita aplikácie: 
 
-1. Lokalizácia (v aplikácií tlačítko search) 
+1. Tlačidlo Search v hlavnom menu (vľavo)
+   Po kliknutí zobrazí užívateľovi lokalitu v ktorej sa nachádza alebo alternatívnu správu pokiaľ žiadnu nenašlo
+2. Tlačidlo New location v hlavnom menu (v strede)
+  Po kliknutí sa užívateľovi zobrazí okno čakajúce na vstup lokality do ktorej chce násť cestu. Po tom čo užívateľ začne písať mu zobrazuje názvy vyhovujúce jeho vstupu (pokiaľ taký existuje). Následne užívateľa lokalizuje a zobrazí mu body cez, ktoré sa dostane na požadované miesto (pokiaľ taká trasa existuje)
+3. Tlačidlo History v hlavnom menu (vpravo)
+ Zobrazí históriu posledných hľadaní do určitej lokality. Ak je hľadaní pre nejaké miesto viacej zobrazí len najnovší. Po kliknutí na nejaký zo záznamov sa znovu spustí vyhľadávanie. V bočnom menu panely sa nachádza tlačidlo delete a po jeho odkliknutí sa užívateľovi zobrazí okno umožňujúce mazať záznamy.
+4. Tlačidlo Record creator v hlavnom menu (skryté, zobrazí sa po kliknutí na bočný panel v menu)
+  Užívateľ dostaneme možnosť zadávať mená pre vlastne body. Tieto sa pridávajú do Manažéra záznamov do ktorého sa dá dostať po kliknutí na ikonu pera v hornom panely. V bočnom menu sa tiež nachádza možnosť pridať záznamy do textového súboru, ktorá vytvorí súbor v priečinku Dowloads kde záznamy uloží. (Za bežných okolností by sa použil priečinok Documents, ktorý je vhodejší avšak nie je podporovaný všetkými verziamy android)
 
-Po kliknutí na tlačítko sa používateľovi zobrazí jeho aktuálna lokalita v budove 
-FMFI. V prípade, že sa používateľa nepodarí z doposiaľ zozbieraných údajov lokalizovať, 
-zobrazí sa o tom používateľovi správa. Pokiaľ používateľ nemá zapnutú wifi, zobrazí 
-sa mu vyskakovacie okno, ktoré ho na to upozorní. Aplikácia zbiera informácie 
-z okolitých wifín a na základe modelu určuje aktuálnu polohu. 
+ Manažér záznamov
+ 
+ Zobrazí sa zoznam všetkých záznamov. V menu sú možnosti Zmazať a Vyhľadať podľa mena. V časi zmazať je v skrytom menu ešte možnosť Vyčistiť históriu a susedov, ktorá zmaže z týchto miest riadky, ktoré boli už vymazané zo záznamov. V prípade, že užívaťeľ zvolí možnosť vymazať všetky záznamy sa tieto vymažú automaticky. 
+ 
+ Po kliknutí na konkrétny záznam sa zobrazia údaje o všetkých dostupných wifinách. V tejto časti nájde v menu užívateľ možnosť vytvoriť susedov, čo je spôsob ako prepojiť body aby sa v nich dala hľadať cesta. Rovnako je tu možnosť premenovať daný záznam a aplikovať zmeny buď na jeden konkrétny alebo všetky záznamy z daným názvom.
+ 
+ Pokiaľ užívateľ klikne na jednu z wifín zobrazia sa mu o nej kompletné informácie.
+ 
+ 5. Čo sa plánovalo a nestihlo
+  Trasu sme pôvodne plánovali vizualizovať nielen vypísať, avšak vytvorenie užitočného vytvárača záznamov (Record creator) zabralo značnú časť času a jeho úloha sa ukázala byť celkom kľúčová. Druhým dôvodom bola pomerne zložitá práca z obrázkami, ktoré sa nezmestia do pamäte a snaha urobiť lokalizáciu čo najviac všeobecnú bez viazania sa na konkrétne miesto.
+UI je značne obmedzené z dôvodu vývoja pod pomerne starým zariadením, ktoré nepodporuje viaceré vlastnosti nových GUI. Výhodou je však podpora na takmer ľubovolnom zariadení so systémom Android.
+ 
 
-2. Zadanie požadovanej lokality (v aplikácií tlačítko new location) 
-Zobrazí input do ktorého používateľ zadáva požadovanú lokalitu. Input zobrazuje 
-používateľovi list miestností podľa vstupu, ktorý je zadaný. Miestnosti sú načítavané 
-z databázy (zatiaľ obsahuje niekoľko akváriek, M 217, F1, F1 109, F2, M 218, A, B, C). 
-Po odkliknutí sa miestnosť zapíše do histórie a pokiaľ v nej už hľadaná miestnosť 
-existuje, zaradí sa na prvé miesto a aktualizuje sa jej čas pridania. 
-Používateľovi sa po kliknutí zobrazí vyskakovacie okno so správou o pridaní do histórie. 
-K dispozícií je tlačítko help, kde sa po kliknutí 
-zobrazí nápoveda o tom, ako správne zadávať hľadané miestnosti. 
-
-3. História (v aplikácií tlačítko history) 
-Zobrazí zoznam už niekedy hľadaných miestností od najnovšieho cieľa po najstarší. 
-V bočnom panely sú k dispozícií tlačítka delete a deleteAll. Po stlačení delete 
-sa k zoznamu pridajú radio buttony, pomocou ktorých používateľ určí, ktoré položky 
-chce odstrániť. DeleteAll odstráni všetky položky. V prípade, že je história prázdna 
-je o tom zobrazená správa. 
-
-Čo ďalej: 
-
-V druhom semestri plánujeme pridať do databázy komplexné informácie o signále 
-v ostatných miestnostiach, implementovať algoritmus, ktorý nájde najkratšiu cestu 
-do požadovanej lokality a následnú vizualizáciu tejto trasy.
