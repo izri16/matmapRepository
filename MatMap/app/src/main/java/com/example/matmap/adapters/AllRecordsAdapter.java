@@ -17,7 +17,6 @@ import org.json.JSONObject;
  * Adapter for RecordsManager Activity
  */
 public class AllRecordsAdapter extends BaseAdapter {
-
     private Context context;
     private JSONObject[] data;
     private Activity activity;

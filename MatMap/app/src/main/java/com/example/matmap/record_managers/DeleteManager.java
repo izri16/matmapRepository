@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +17,18 @@ import android.widget.ListView;
 import com.example.matmap.MatMapDatabase;
 import com.example.matmap.R;
 import com.example.matmap.adapters.DeleteAdapter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Responsible for deleting records from search_data, history and in some cases neighbors
+ * tables in database
+ */
 public class DeleteManager extends Activity {
     private ListView recordsListView;
     private List<JSONObject> items;
@@ -157,12 +162,8 @@ public class DeleteManager extends Activity {
     public void checkBoxClicked(View view) {
         Integer l = (Integer) view.getTag();
 
-        /*
-        POKUS
-         */
         CheckBox c = (CheckBox) findViewById(R.id.boxToCheckAll);
         c.setChecked(false);
-        ///koniec
 
         adapter.setRecentSwitch(false);
         adapter.reCheck(l);
@@ -297,8 +298,6 @@ public class DeleteManager extends Activity {
                 whereClause.delete(whereClause.length() - 1, whereClause.length());
                 whereClause.append(")");
 
-                Log.d("WHERE CLAUSE", whereClause.toString());
-
                 String[] pom = Arrays.copyOf(itemsToDelete.toArray(), itemsToDelete.toArray().length,
                         String[].class);
 
@@ -346,12 +345,18 @@ public class DeleteManager extends Activity {
         init();
     }
 
+    /**
+     * Delete records which do not appear in search_data table from all different tables
+     */
     public void deleteFromOtherDB() {
         deleteRoomsFromNeighbors();
         deleteNeighborsFromNeighbors();
         deleteNamesFromHistory();
     }
 
+    /**
+     * Delete rows from neighbor table which do not appear in search_data table
+     */
     private void deleteRoomsFromNeighbors() {
         String query = "SELECT DISTINCT(room_name) FROM neighbors";
         boolean del = true;
@@ -381,6 +386,9 @@ public class DeleteManager extends Activity {
         constantsCursor.close();
     }
 
+    /**
+     * Delete rows from neighbor table which do not appear in search_data table
+     */
     private void deleteNeighborsFromNeighbors() {
         String query = "SELECT DISTINCT(neighbor) FROM neighbors";
         boolean del = true;
@@ -410,6 +418,9 @@ public class DeleteManager extends Activity {
         constantsCursor.close();
     }
 
+    /**
+     * Delete rows from history table which do not appear in search_data table
+     */
     private void deleteNamesFromHistory() {
         String query = "SELECT DISTINCT(room_name) FROM history";
         boolean del = true;

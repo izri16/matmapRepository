@@ -40,13 +40,6 @@
             android:layout_centerInParent="true"
             android:src="@drawable/new_location"/>
 
-        <Button
-            android:text="Click for help"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:onClick="openHelp"/>
-
     </RelativeLayout>
 
 </LinearLayout>

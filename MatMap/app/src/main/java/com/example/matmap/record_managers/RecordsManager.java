@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Manager for all records in application
+ */
 public class RecordsManager extends ActionBarActivity {
     private ListView recordsListView;
     private List<JSONObject> items;
@@ -46,7 +49,6 @@ public class RecordsManager extends ActionBarActivity {
 
         init();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

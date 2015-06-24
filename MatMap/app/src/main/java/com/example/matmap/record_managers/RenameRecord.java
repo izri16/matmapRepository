@@ -14,6 +14,10 @@ import android.widget.EditText;
 import com.example.matmap.MatMapDatabase;
 import com.example.matmap.R;
 
+/**
+ * Responsible for renaming records
+ * Can rename all records with specific name or just single
+ */
 public class RenameRecord extends ActionBarActivity {
     private EditText editText;
     private SQLiteDatabase matMapDatabase = null;

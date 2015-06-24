@@ -31,20 +31,24 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-public class TemporaryLocalisation extends ActionBarActivity {
+/**
+ * Used as a handy locator for user
+ * Can save records into both database and files and open RecordManager Activity
+ */
+public class RecordsCreator extends ActionBarActivity {
     private WifiManager wifi;
     private WifiReceiver wifiReceiver;
     private static EditText roomName;
     private SQLiteDatabase matMapDatabase = null;
     private Cursor constantsCursor = null;
-    private TemporaryLocalisation ref = this;
+    private RecordsCreator ref = this;
     private ProgressBar spinner;
     private Button temporaryLocalisationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temporary_localisation);
+        setContentView(R.layout.activity_records_creator);
 
         spinner = (ProgressBar) findViewById(R.id.spinningProgressBar);
         spinner.setVisibility(View.GONE);
@@ -58,7 +62,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_temporary_localisation, menu);
+        getMenuInflater().inflate(R.menu.menu_records_creator, menu);
         return true;
     }
 
@@ -73,16 +77,27 @@ public class TemporaryLocalisation extends ActionBarActivity {
         if (id == R.id.action_edit) {
             openRecordManager();
             return true;
+        } else if (id == R.id.action_put_records_into_file) {
+            putRecordsIntoFile();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Opens RecordManager Activity
+     */
     public void openRecordManager() {
         Intent intent = new Intent(this, RecordsManager.class);
         startActivity(intent);
     }
 
+    /**
+     * Puts new record into search_data database
+     *
+     * @param view pressed button
+     */
     public void putNewRecord(View view) {
         wifiReceiver = new WifiReceiver();
         registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
@@ -90,9 +105,8 @@ public class TemporaryLocalisation extends ActionBarActivity {
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
 
-        //Test ci je wifi zapnuta
+        //Test if wifi is on
         if (!wifi.isWifiEnabled()) {
-            //textView.setText("STE OFF");
             new AlertDialog.Builder(this)
                     .setTitle("No connection!")
                     .setIcon(R.drawable.no_wifi)
@@ -125,13 +139,17 @@ public class TemporaryLocalisation extends ActionBarActivity {
                     .show();
         }
         else {
+            temporaryLocalisationButton.setEnabled(false);
             activateSpinner();
             wifi.startScan();
         }
 
     }
 
-    public void putRecordsIntoFile(View view) {
+    /**
+     * Asks if really want to put records into file and then performs action
+     */
+    public void putRecordsIntoFile() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Really want to rewrite file?")
@@ -140,7 +158,9 @@ public class TemporaryLocalisation extends ActionBarActivity {
 
     }
 
-    /* Checks if external storage is available for read and write */
+    /**
+     *  Checks if external storage is available for read and write
+     */
     private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -149,10 +169,12 @@ public class TemporaryLocalisation extends ActionBarActivity {
         return false;
     }
 
+    /**
+     * Rewrites content on text file which stores records data
+     */
     private void changeFile() {
         if (isExternalStorageWritable()) {
 
-            File sdCard = Environment.getExternalStorageDirectory();
             File path = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOWNLOADS);
 
@@ -177,7 +199,8 @@ public class TemporaryLocalisation extends ActionBarActivity {
                         .show();
 
             } catch (IOException e) {
-                Log.d("FILE", e.toString());
+                Log.d("ERROR", e.toString());
+                e.printStackTrace();
             }
 
         }
@@ -197,6 +220,11 @@ public class TemporaryLocalisation extends ActionBarActivity {
         }
     }
 
+    /**
+     * Called to get data for text file
+     *
+     * @return Data which will be put into file
+     */
     private String getRecordsData() {
         constantsCursor = matMapDatabase.rawQuery("SELECT room_name, group_id, timestamp, BSSID, " +
                                                   "strength, device, SSID FROM search_data " +
@@ -217,17 +245,26 @@ public class TemporaryLocalisation extends ActionBarActivity {
         return answer;
     }
 
+    /**
+     * Activates spinner to signalize that record is being added
+     */
     private void activateSpinner() {
         temporaryLocalisationButton.setText("Scanning, please wait");
         this.spinner.setVisibility(View.VISIBLE);
 
     }
 
+    /**
+     * Deactivates spinner when adding record is finished
+     */
     private void deactivateSpinner() {
         temporaryLocalisationButton.setText("Add new record");
         this.spinner.setVisibility(View.GONE);
     }
 
+    /**
+     * Dialog for save changed to file action
+     */
     DialogInterface.OnClickListener saveChangesClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -243,12 +280,15 @@ public class TemporaryLocalisation extends ActionBarActivity {
         }
     };
 
+    /**
+     * Used to get wifi signal
+     */
     class WifiReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context c, Intent intent) {
 
-            Log.d("Activity", "Scanning");
+            Log.d("Action", "Scanning");
             List<ScanResult> scanList = wifi.getScanResults();
             ContentValues values = new ContentValues();
 
@@ -262,7 +302,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
 
                 Log.d("GROUP ID", String.valueOf(groupId));
 
-                values.put("room_name", TemporaryLocalisation.roomName.getText().toString());
+                values.put("room_name", RecordsCreator.roomName.getText().toString());
                 values.put("group_id", groupId);
                 values.put("timestamp", MainActivity.getDateTime());
                 values.put("BSSID", sr.BSSID);
@@ -277,6 +317,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
             wifiReceiver = null;
 
             deactivateSpinner();
+            temporaryLocalisationButton.setEnabled(true);
 
             new AlertDialog.Builder(ref)
                     .setTitle("Added!")
@@ -287,10 +328,15 @@ public class TemporaryLocalisation extends ActionBarActivity {
                         }
                     })
                     .show();
-
         }
     }
 
+    /**
+     * Increment group_id in record_group_id database
+     * This method and database should not exist in future
+     *
+     * @return old group_id
+     */
     private int incrementGroupIdRecord() {
         constantsCursor = matMapDatabase.rawQuery("SELECT record_group_id FROM record_group", null);
 
@@ -299,10 +345,7 @@ public class TemporaryLocalisation extends ActionBarActivity {
         constantsCursor.moveToFirst();
         while(!constantsCursor.isAfterLast()) {
             groupIdRecord = constantsCursor.getInt(0);
-            Log.d("MAGIC ", String.valueOf(constantsCursor.getInt(0)));
             constantsCursor.moveToNext();
-
-
         }
         constantsCursor.close();
 

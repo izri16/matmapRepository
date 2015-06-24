@@ -18,8 +18,11 @@
         matmap:showAsAction="always" />
 
     <item android:id="@+id/action_temporary_localization"
-        android:title="Temporary localisation"
+        android:title="Records creator"
         matmap:showAsAction="never" />
-        	
+
+    <item android:id="@+id/action_help"
+        android:title="Help"
+        matmap:showAsAction="never" />
 
 </menu>

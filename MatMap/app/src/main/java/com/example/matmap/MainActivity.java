@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Head Activity of application
+ */
 public class MainActivity extends ActionBarActivity {
-	public static final String EXTRA_MESSAGE="com.example.myfirstapp.MESSAGE";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar, menu);
+        inflater.inflate(R.menu.menu_action_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -46,33 +48,60 @@ public class MainActivity extends ActionBarActivity {
         case R.id.action_temporary_localization:
             openTemporaryLocalisation();
             return true;
+        case R.id.action_help:
+            openHelp();
+            return true;
         default:
         	return super.onOptionsItemSelected(item);
         		
         }
     }
-        
+
+    /**
+     * Opens Search Activity
+     */
     public void openSearch() {
     	Intent intent = new Intent(this, Search.class);
     	startActivity(intent);
     }
 
+    /**
+     * Opens TemporaryLocalisation Activity
+     */
     public void openTemporaryLocalisation() {
-        Intent intent = new Intent(this, TemporaryLocalisation.class);
+        Intent intent = new Intent(this, RecordsCreator.class);
         startActivity(intent);
     }
-    
+
+    /**
+     * Opens NewLocation Activity
+     */
     public void openNewLocation() {
     	Intent intent = new Intent(this, NewLocation.class);
     	startActivity(intent);
     }
-    
+
+    /**
+     * Opens History Activity
+     */
     public void openHistory() {
     	Intent intent = new Intent(this, History.class);
     	startActivity(intent);
     }
 
-    //STATIC METHODS
+    /**
+     * Opens Help Activity
+     */
+    public void openHelp() {
+        Intent intent = new Intent(this, Help.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Used to get current time
+     *
+     * @return time in yyyy-MM-dd HH:mm:ss format
+     */
     public static String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());

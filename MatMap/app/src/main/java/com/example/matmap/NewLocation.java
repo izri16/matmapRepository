@@ -55,7 +55,7 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_location, menu);
+		getMenuInflater().inflate(R.menu.menu_new_location, menu);
 		return true;
 	}
 
@@ -95,11 +95,6 @@ public class NewLocation extends ActionBarActivity implements AdapterView.OnItem
 
         constantsCursor.close();
         matMapDatabase.close();
-    }
-
-    public void openHelp(View view) {
-        Intent intent = new Intent(this, Help.class);
-        startActivity(intent);
     }
 
     private boolean addRoomIntoHistory(String room) {

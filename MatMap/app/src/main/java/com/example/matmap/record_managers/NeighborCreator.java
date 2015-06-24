@@ -19,6 +19,9 @@ import com.example.matmap.R;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Responsible for creating neighbor which are just as adjacency matrix in PathViewer Activity
+ */
 public class NeighborCreator extends ActionBarActivity {
     private EditText neighbors;
     private String roomName;
@@ -39,6 +42,7 @@ public class NeighborCreator extends ActionBarActivity {
         hint.setText("Every neighbour of the current room has to be on a new line!");
 
         neighbors.setText(getNeighbors());
+        getSupportActionBar().setTitle(roomName);
     }
 
 
@@ -59,6 +63,11 @@ public class NeighborCreator extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Get all neighbors for current room
+     *
+     * @return neighbors for current room
+     */
     private String getNeighbors() {
         String query = "SELECT neighbor FROM neighbors WHERE room_name = '" + roomName + "'";
         constantsCursor = matMapDatabase.rawQuery(query, null);
@@ -80,6 +89,11 @@ public class NeighborCreator extends ActionBarActivity {
         return builder.toString();
     }
 
+    /**
+     * Save new neighbors for current room
+     *
+     * @param view pressed button
+     */
     public void confirmChanges(View view) {
         String whereClause = "room_name = ?";
         String[] delValues = {roomName};
@@ -125,6 +139,12 @@ public class NeighborCreator extends ActionBarActivity {
         }
     }
 
+    /**
+     * Checks if neighbor exist in search_data database
+     *
+     * @param room
+     * @return true if exists else if not
+     */
     private boolean existInSearchData(String room) {
         String query = "SELECT room_name FROM search_data WHERE room_name = '" + room + "'";
 
@@ -137,6 +157,9 @@ public class NeighborCreator extends ActionBarActivity {
         return false;
     }
 
+    /**
+     * Shows success message
+     */
     private void showPositiveMessage() {
         new AlertDialog.Builder(this)
                 .setTitle("Successfully changed")
@@ -149,6 +172,9 @@ public class NeighborCreator extends ActionBarActivity {
                 .show();
     }
 
+    /**
+     * Shows fail message when neighbor do not exist in search_data
+     */
     private void showNegativeMessage() {
         new AlertDialog.Builder(this)
                 .setTitle("Wrong input")
@@ -162,6 +188,9 @@ public class NeighborCreator extends ActionBarActivity {
                 .show();
     }
 
+    /**
+     * Shows fail message when neighbor has same name as current room
+     */
     private void showNegativeMessageTwo() {
         new AlertDialog.Builder(this)
                 .setTitle("Wrong input")

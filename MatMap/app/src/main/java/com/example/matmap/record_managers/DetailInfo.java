@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -37,8 +36,6 @@ public class DetailInfo extends ActionBarActivity {
 
         getTextFields();
         fillTextFields();
-
-        Log.d("IDEDEDE", String.valueOf(id));
     }
 
 
@@ -59,9 +56,13 @@ public class DetailInfo extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Fill text fields with data text
+     */
     private void fillTextFields() {
         matMapDatabase = (new MatMapDatabase(this)).getWritableDatabase();
-        constantsCursor = matMapDatabase.rawQuery("SELECT _id, group_id, SSID, STRENGTH, BSSID, timestamp, room_name, device FROM search_data WHERE _id = '" + id + "'", null);
+        constantsCursor = matMapDatabase.rawQuery("SELECT _id, group_id, SSID, STRENGTH, BSSID, " +
+                "timestamp, room_name, device FROM search_data WHERE _id = '" + id + "'", null);
 
         constantsCursor.moveToFirst();
 
@@ -80,6 +81,9 @@ public class DetailInfo extends ActionBarActivity {
         }
     }
 
+    /**
+     * Initialize all text fields
+     */
     private void getTextFields() {
         this.bssid = (TextView)findViewById(R.id.singleRecordBSSID);
         this.ssid = (TextView)findViewById(R.id.singleRecordSSID);

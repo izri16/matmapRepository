@@ -25,7 +25,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,35 +32,23 @@
             android:name=".Search"
             android:label="@string/title_activity_search"
             android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.matmap.MainActivity" />
         </activity>
         <activity
             android:name=".NewLocation"
             android:label="@string/title_activity_new_location"
             android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.matmap.MainActivity" />
         </activity>
         <activity
             android:name=".History"
             android:label="@string/title_activity_history" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.matmap.MainActivity" />
         </activity>
         <activity
             android:name=".Help"
             android:label="@string/title_activity_help" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.matmap.MainActivity" />
         </activity>
         <activity
-            android:name=".TemporaryLocalisation"
-            android:label="MatMap locator" >
+            android:name=".RecordsCreator"
+            android:label="Records creator" >
         </activity>
         <activity
             android:name=".record_managers.RecordsManager"

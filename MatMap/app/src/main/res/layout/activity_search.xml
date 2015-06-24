@@ -12,20 +12,25 @@
     <TextView
         android:id="@+id/locationMessage"
         android:layout_width="fill_parent"
-        android:textSize="20dp"
+        android:textColor="#83C7D5"
+        android:textSize="25dp"
         android:gravity="center"
         android:padding="30dp"
-        android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_below="@id/locationMessage"
+        android:layout_height="fill_parent">
 
     <ImageView
         android:id="@+id/unknownLocation"
         android:src="@drawable/sad_smiley"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="50dp"
-        android:layout_below="@id/locationMessage"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
+    </RelativeLayout>
 
 </RelativeLayout>

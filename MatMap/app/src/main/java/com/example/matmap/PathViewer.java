@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+/**
+ * Used to get path to chosen destination
+ */
 public class PathViewer extends ActionBarActivity {
     private List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>(); //Vsetky udaje o wifi
     private WifiManager wifi;
@@ -92,9 +95,9 @@ public class PathViewer extends ActionBarActivity {
 
             lastLocation.addAP(bssid, strength);
 
-            //Log.d("ROOM_NAME", roomName);
-            //Log.d("BSSID", bssid);
-            //Log.d("STRENGTH", String.valueOf(strength));
+            Log.d("ROOM_NAME", roomName);
+            Log.d("BSSID", bssid);
+            Log.d("STRENGTH", String.valueOf(strength));
 
             constantsCursor.moveToNext();
         }
@@ -118,6 +121,9 @@ public class PathViewer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Check if users wifi is on
+     */
     private void checkIfWifiOn() {
         if (!wifi.isWifiEnabled()) {
             new AlertDialog.Builder(this)
@@ -135,6 +141,9 @@ public class PathViewer extends ActionBarActivity {
         }
     }
 
+    /**
+     * Performs breath-first search and then displays path or alternative message
+     */
     public void viewPath() {
         Map<String, String> previous = new HashMap<>();
         Map<String, Boolean> visited = new HashMap<>();
@@ -154,7 +163,7 @@ public class PathViewer extends ActionBarActivity {
                 constantsCursor.moveToFirst();
 
                 while (!constantsCursor.isAfterLast()) {
-                    Log.d("ZACYKLIL", "SA");
+                    Log.d("BFS ACTION", "");
                     String neighbor = constantsCursor.getString(0);
 
                     if (!visited.containsKey(neighbor)) {
@@ -177,7 +186,7 @@ public class PathViewer extends ActionBarActivity {
             while(!s.equals(this.currentPosition)) {
                 directions.add(s);
                 s = previous.get(s);
-                Log.d("CYKLUS", "CYKLUS");
+                Log.d("FINDING PATH", "");
             }
             directions.add(s);
             Collections.reverse(directions);
@@ -188,6 +197,12 @@ public class PathViewer extends ActionBarActivity {
 
     }
 
+    /**
+     * Puts List with Strings into one file representing path to destination
+     *
+     * @param l list with Strings from directions list
+     * @return String representation of path
+     */
     private String toMyFormat(List<String> l) {
         String answer = "";
 
@@ -201,11 +216,13 @@ public class PathViewer extends ActionBarActivity {
         return answer;
     }
 
+    /**
+     * Used to get wifi signal
+     */
     class WifiReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context c, Intent intent) {
-            //Log.d("as", "here");
             List<ScanResult> scanList = wifi.getScanResults();
             List<WifiInfo> tempDates = new ArrayList<WifiInfo>();
 
@@ -229,8 +246,6 @@ public class PathViewer extends ActionBarActivity {
                 currentPosition = place;
                 viewPath();
             }
-
-
         }
     }
 

@@ -22,8 +22,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Display users location or if unknown displays alternative message
+ */
 public class Search extends ActionBarActivity {
-	private List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>(); //Vsetky udaje o wifi
+	private List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>(); //All info about wifi
 	private WifiManager wifi;
 	private WifiReceiver wifiReceiver;
 	private TextView textView;
@@ -82,8 +85,7 @@ public class Search extends ActionBarActivity {
 		wifiReceiver = new WifiReceiver();
 		registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
-
-        //Test ci je wifi zapnuta
+        //Test if wifi is on
         if (!wifi.isWifiEnabled()) {
             new AlertDialog.Builder(this)
                     .setTitle("No connection!")
@@ -98,16 +100,17 @@ public class Search extends ActionBarActivity {
                     })
                     .show();
         }
-
         wifi.startScan();
-
 	}
-	
+
+    /**
+     * Used to get wifi signal
+     */
 	class WifiReceiver extends BroadcastReceiver {
 			
 		@Override
 		public void onReceive(Context c, Intent intent) {
-                Log.d("as", "here");
+                Log.d("Action", "Scanning");
                 List<ScanResult> scanList = wifi.getScanResults();
 				List<WifiInfo> tempDates = new ArrayList<WifiInfo>();
 				
@@ -119,12 +122,12 @@ public class Search extends ActionBarActivity {
 				
 				wifiInfoList = tempDates;
 
-
-
                 String place = locator.localize(tempDates);
                 if (place.equals("")) {
                     place = "a location we do not know about yet";
                     unknownLocationImage.setVisibility(View.VISIBLE);
+                } else {
+                    unknownLocationImage.setVisibility(View.GONE);
                 }
                 textView.setText("You are at " + place);
 
@@ -134,7 +137,7 @@ public class Search extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.history, menu);
+        getMenuInflater().inflate(R.menu.menu_history, menu);
         return true;
     }
 

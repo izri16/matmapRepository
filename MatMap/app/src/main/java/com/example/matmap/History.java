@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * History users searches
+ * When user clicks on item from history search will start again
+ */
 public class History extends ActionBarActivity {
     private ListView recordsListView;
     private List<JSONObject> items;
@@ -42,7 +46,7 @@ public class History extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.history, menu);
+		getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuItem del = menu.findItem(R.id.action_delete);
 
         if (this.disableMenu) {
@@ -87,7 +91,7 @@ public class History extends ActionBarActivity {
     }
 
     /**
-     * does all necessary work to initialize all important properties
+     * Does all necessary work to initialize all important properties
      */
     private void init() {
         recordsListView = (ListView)findViewById(R.id.recordList);

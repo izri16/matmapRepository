@@ -1,36 +1,41 @@
 package com.example.matmap;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.matmap.R;
-
+/**
+ * Help section for new users
+ */
 public class Help extends ActionBarActivity {
-    private TextView helpHeader;
     private TextView helpBody;
-    private TextView helpMiddle;
-    private TextView helpExample;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        this.helpHeader = (TextView) findViewById(R.id.helpHeader);
         this.helpBody = (TextView) findViewById(R.id.helpBody);
-        this.helpMiddle = (TextView) findViewById(R.id.helpMiddle);
-        this.helpExample = (TextView) findViewById(R.id.helpExample);
 
-        this.helpHeader.setText("How should I type?");
-        this.helpBody.setText("When typing destination name separate every part of it's name by space " +
-                "except when typing F1, F2 or some H room like H5. Means that in all other cases " +
-                "words and numbers must be separated. Searching will start automatically after an option " +
-                "will be selected and then it will be added into history.\n");
-        this.helpMiddle.setText("See some correct examples:");
-        this.helpExample.setText("M IV \nF1 109 \nH5 \nA \nF1 \nM 217");
+        this.helpBody.setText("To create records of specific places simply click on 'Records creator'" +
+                " button in menu. Then type name and click 'Add new record'. Record will be " +
+                "added into 'Records manager' which you can opened by clicking on pen picture at " +
+                "the top of 'Records creator'. You can then delete, rename and find any records you " +
+                "want. Do not forget to create neighbors for all records to find path between them. " +
+                "To do this click on record you want and in the menu press 'Neighbor creator'. " +
+                "\n\nIf you want to know you location just click left button in the top of the main menu bar. " +
+                "If you want to find path to some destination click the middle button in the same bar. " +
+                "To open the History click right button in same bar, too. You can delete records " +
+                "from history of course when click on delete in the history menu. When you click on any " +
+                "record in the 'History' it will find path. \n\nIf you want to put you records into file " +
+                "open 'Records creator' and press 'Put changes into file' the in menu. File will be" +
+                " created in your downloads folder." +
+                "If you delete some " +
+                "records and you want them to deleted from history and neighbors too go to delete " +
+                "section and in menu press 'Clear neighbors and history'. If you delete all the " +
+                "records that will happen automatically. \n\nHave a nice locating with MatMap application.");
     }
 
 

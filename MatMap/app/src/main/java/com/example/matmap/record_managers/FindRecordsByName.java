@@ -19,6 +19,9 @@ import com.example.matmap.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Performs finding records by selected names if fit any
+ */
 public class FindRecordsByName extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private AutoCompleteTextView inputField;
     private SQLiteDatabase matMapDatabase;
@@ -33,6 +36,9 @@ public class FindRecordsByName extends ActionBarActivity implements AdapterView.
         init();
     }
 
+    /**
+     * Does all necessary work to initialize all important variables
+     */
     private void init() {
         items = new ArrayList<>();
         inputField = (AutoCompleteTextView)findViewById(R.id.findRecordsByName);

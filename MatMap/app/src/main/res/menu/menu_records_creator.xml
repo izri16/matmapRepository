@@ -1,11 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.matmap.TemporaryLocalisation">
+    tools:context="com.example.matmap.RecordsCreator">
 
     <item android:id="@+id/action_edit"
         android:title="Edit"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_edit"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_put_records_into_file"
+        android:title="Put records into file"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

@@ -1,5 +1,8 @@
 package com.example.matmap;
 
+/**
+ * Wrapper for wifi information
+ */
 public class WifiInfo {
 		
 	private String SSID;

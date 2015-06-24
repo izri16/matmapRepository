@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Shows records which have same group_id thus were added in same click
+ */
 public class RecordGroup extends ActionBarActivity {
     private ListView listView;
     private List<JSONObject> items;
@@ -67,9 +70,6 @@ public class RecordGroup extends ActionBarActivity {
     }
 
     private void init() {
-        /*
-         * Vytiahne id skupiny prave odkliknuteho zaznamu
-         */
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             this.groupId = Integer.valueOf(extras.getString("groupId"));
@@ -107,7 +107,8 @@ public class RecordGroup extends ActionBarActivity {
         constantsCursor.close();
 
         listView.setAdapter(new SingleRecordAdapter(this, Arrays.copyOf(items.toArray(),
-                                                    items.toArray().length, JSONObject[].class), this));
+                                                    items.toArray().length, JSONObject[].class),
+                                                    this));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -126,6 +127,9 @@ public class RecordGroup extends ActionBarActivity {
         });
     }
 
+    /**
+     * Opens RenameRecord Activity
+     */
     private void openRenameRecord() {
         Intent intent = new Intent(this, RenameRecord.class);
         intent.putExtra("roomName", roomName);
@@ -133,6 +137,9 @@ public class RecordGroup extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /**
+     * Opens NeighborCreator Activity
+     */
     private void openNeighbourCreator() {
         Intent intent = new Intent(this, NeighborCreator.class);
         intent.putExtra("roomName", roomName);

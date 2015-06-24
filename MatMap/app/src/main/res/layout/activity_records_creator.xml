@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#222222"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.matmap.TemporaryLocalisation">
+    tools:context="com.example.matmap.RecordsCreator">
 
     <EditText
         android:id="@+id/roomName"
@@ -46,16 +46,5 @@
             android:src="@drawable/add_record"/>
 
         </RelativeLayout>
-
-    <Button
-        android:id="@+id/putRecordsIntoFile"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
-        android:text="Put Changes Into File"
-        android:visibility="gone"
-        android:onClick="putRecordsIntoFile"
-        />
 
 </RelativeLayout>
